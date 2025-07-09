@@ -23,6 +23,7 @@ services:
       DATABASE_PASSWORD: strapi
       DATABASE_SSL: 'false'
       APP_KEYS: change_me
+      ADMIN_JWT_SECRET: changeme
       API_TOKEN_SALT: KUNIpgntw/t3kgRAQfCN0w==
       CLIENT_URL: http://localhost:3000
     ports:

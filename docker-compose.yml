@@ -13,6 +13,7 @@ services:
     volumes:
       - ./backend:/app
       - backend-node-modules:/app/node_modules
+    command: sh -c "npm install && npm run start"
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
@@ -32,6 +33,7 @@ services:
     volumes:
       - ./frontend:/app
       - frontend-node-modules:/app/node_modules
+    command: sh -c "npm install && npm run build && npm start"
     environment:
       BACKEND_URL: http://localhost:1337
     ports:

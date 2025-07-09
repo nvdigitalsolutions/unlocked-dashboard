@@ -28,9 +28,9 @@ sudo apt install -y nodejs
 sudo systemctl enable --now docker
 
 # Add current user to the docker group if not already added
-if ! groups $USER | grep -q docker; then
-    sudo usermod -aG docker $USER
-    echo "You may need to log out and log back in for docker group membership to take effect." >&2
+if ! groups "$USER" | grep -q docker; then
+    sudo usermod -aG docker "$USER"
+    echo "You may need to log out and back in or run 'newgrp docker' for group changes to take effect." >&2
 fi
 
 # Install project dependencies

@@ -1,4 +1,4 @@
-# Unlocked Dashboard
+# Full-Stack Monorepo: Next.js (Craft.js) Frontend & Strapi Backend
 
 This repository provides a minimal example of a full-stack project using a Next.js frontend and a Strapi backend. The setup uses Docker for local development and includes configuration files for deployment to DigitalOcean's App Platform.
 

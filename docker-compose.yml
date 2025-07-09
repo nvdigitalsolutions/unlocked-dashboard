@@ -12,6 +12,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/app
+      - backend-node-modules:/app/node_modules
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
@@ -30,6 +31,7 @@ services:
     build: ./frontend
     volumes:
       - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
     environment:
       BACKEND_URL: http://localhost:1337
     ports:
@@ -38,3 +40,5 @@ services:
       - backend
 volumes:
   db-data:
+  backend-node-modules:
+  frontend-node-modules:

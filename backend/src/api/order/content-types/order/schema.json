@@ -1,0 +1,21 @@
+{
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": "Customer orders"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "orderNumber": { "type": "string" },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product"
+    },
+    "total": { "type": "decimal" }
+  }
+}

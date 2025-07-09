@@ -71,6 +71,8 @@ The script will:
 
 After it finishes you can visit the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.
 
+If Docker fails with a permission denied error when accessing `/var/run/docker.sock`, open a new terminal session or run `newgrp docker` so your shell picks up the new group membership, then rerun the last command.
+
 ### Manual steps
 
 If you prefer to install everything manually, follow these commands instead of running the script:

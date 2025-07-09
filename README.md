@@ -130,3 +130,5 @@ docker compose up --build
 ```
 
 Once the services start you can access the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.
+
+For an outline of how to turn this starter into the full-featured monorepo described in the project brief, see [docs/upgrade.md](docs/upgrade.md).

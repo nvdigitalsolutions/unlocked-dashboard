@@ -48,7 +48,12 @@ The repository includes a convenience script that installs all dependencies and 
 ```bash
 # 1. Install required packages
 sudo apt update
-sudo apt install -y git curl docker.io docker-compose
+sudo apt install -y ca-certificates curl gnupg git lsb-release
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # 2. Clone the repository and run the setup script
 git clone https://github.com/nvdigitalsolutions/unlocked-dashboard.git
@@ -73,7 +78,12 @@ If you prefer to install everything manually, follow these commands instead of r
 ```bash
 # Install required packages
 sudo apt update
-sudo apt install -y git curl docker.io docker-compose nodejs npm
+sudo apt install -y ca-certificates curl gnupg git lsb-release
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin nodejs npm
 
 # Clone the repository
 git clone <this-repo-url>

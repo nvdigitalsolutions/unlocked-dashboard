@@ -1,5 +1,20 @@
 import React from 'react';
+import { Editor, Frame, Element } from '@craftjs/core';
+import { Container } from '../components/Container';
+import { Text } from '../components/Text';
 
 export default function Home() {
-  return <h1>Welcome to the frontend</h1>;
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return (
+    <Editor resolver={{ Container, Text }}>
+      <Frame>
+        <Element is={Container} padding="40px" canvas>
+          <Text text="Welcome to the frontend" fontSize="24px" />
+        </Element>
+      </Frame>
+    </Editor>
+  );
 }

@@ -1,0 +1,12 @@
+name: unlocked-dashboard
+services:
+  - name: backend
+    dockerfile_path: backend/Dockerfile
+    envs:
+      - key: NODE_ENV
+        value: production
+  - name: frontend
+    dockerfile_path: frontend/Dockerfile
+    envs:
+      - key: NODE_ENV
+        value: production

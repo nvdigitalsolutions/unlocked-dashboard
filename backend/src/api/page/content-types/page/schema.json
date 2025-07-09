@@ -1,0 +1,14 @@
+{
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page",
+    "description": "CMS pages"
+  },
+  "attributes": {
+    "title": { "type": "string" },
+    "slug": { "type": "uid", "targetField": "title" },
+    "content": { "type": "json" }
+  }
+}

@@ -43,12 +43,37 @@ A sample GitHub Actions workflow (`.github/workflows/deploy.yml`) and DigitalOce
 
 ## Fresh Ubuntu setup
 
-On a clean Ubuntu installation you can get started with the following commands:
+The repository includes a convenience script that installs all dependencies and starts the Docker stack. The steps below assume a brand new Ubuntu Server 22.04 installation running inside a Hyper-V virtual machine, but they also work on any Ubuntu 22.04 host.
+
+```bash
+# 1. Install required packages
+sudo apt update
+sudo apt install -y git curl docker.io docker-compose
+
+# 2. Clone the repository and run the setup script
+git clone <this-repo-url>
+cd unlocked-dashboard
+./scripts/setup_ubuntu_hyperv.sh
+```
+
+The script will:
+
+1. Install Node.js 18 using NodeSource.
+2. Ensure Docker is running and your user is part of the `docker` group.
+3. Copy `.env.example` to `.env` if needed.
+4. Install backend and frontend dependencies.
+5. Build and launch the Docker containers.
+
+After it finishes you can visit the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.
+
+### Manual steps
+
+If you prefer to install everything manually, follow these commands instead of running the script:
 
 ```bash
 # Install required packages
 sudo apt update
-sudo apt install -y git docker.io docker-compose nodejs npm
+sudo apt install -y git curl docker.io docker-compose nodejs npm
 
 # Clone the repository
 git clone <this-repo-url>
@@ -65,4 +90,4 @@ cp .env.example .env
 docker compose up --build
 ```
 
-After the services start you can access the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.
+Once the services start you can access the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.

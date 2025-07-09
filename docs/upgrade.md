@@ -2,7 +2,7 @@
 
 This guide outlines the major steps to extend the starter project into the complete monorepo described in the project brief. Each step references official documentation so you can tailor the implementation to your needs.
 
-## 1. Extend the Strapi backend
+## 1. Extend the Strapi backend - COMPLETED
 
 1. Create additional collection types (Products, Orders, Appointments, Video Calls) using Strapi's Content Type Builder or by editing the JSON schemas under `backend/src/api`.
 2. Configure roles and permissions so that public visitors can read published content while authenticated users can create orders and appointments.
@@ -10,7 +10,7 @@ This guide outlines the major steps to extend the starter project into the compl
 4. Enable draft/publish and preview mode by setting `CLIENT_URL` and `PREVIEW_SECRET` in `backend/config/admin.js`.
 5. Seed initial content inside `backend/src/index.js` during the bootstrap phase.
 
-## 2. Build out the Next.js frontend
+## 2. Build out the Next.js frontend - COMPLETED
 
 1. Add pages for `/dashboard`, `/appointments`, `/store` and a dynamic `[slug].js` route. Use `getStaticPaths` and `getStaticProps` to fetch page data from Strapi.
 2. Implement a basic authentication flow that calls Strapi's `/api/auth/local` endpoint and stores the returned JWT.
@@ -18,7 +18,7 @@ This guide outlines the major steps to extend the starter project into the compl
 4. Display products from Strapi on the store page and create an API route (`/api/checkout`) that uses the Stripe SDK to start a Checkout Session.
 5. Add a `/api/preview` route that enables Next.js draft mode when the correct secret is provided.
 
-## 3. Docker and Environment
+## 3. Docker and Environment - COMPLETED
 
 1. Update `docker-compose.yml` with any new environment variables you introduce for Stripe or video call providers.
 2. Ensure both `backend/Dockerfile` and `frontend/Dockerfile` install dependencies and build the apps in production mode.

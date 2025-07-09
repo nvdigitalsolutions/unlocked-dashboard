@@ -16,7 +16,7 @@ Both apps are basic starters. The backend exposes a single `Page` content type a
 
 ## Development
 
-1. Copy `.env.example` to `.env` and adjust values as needed.
+1. Copy `.env.example` to `.env` and adjust values as needed (particularly `APP_KEYS` and `API_TOKEN_SALT`).
 2. Start the stack with Docker Compose (dependencies will be installed automatically):
    ```bash
    docker compose up --build

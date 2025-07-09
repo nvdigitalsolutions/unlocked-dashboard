@@ -40,6 +40,42 @@ A sample GitHub Actions workflow (`.github/workflows/deploy.yml`) and DigitalOce
 
 The repository includes a convenience script that installs all dependencies and starts the Docker stack. The steps below assume a brand new Ubuntu Server 22.04 installation running inside a Hyper-V virtual machine, but they also work on any Ubuntu 22.04 host.
 
+If you still need to create the VM itself, run the following commands from an elevated PowerShell prompt on the Windows host:
+
+```powershell
+# 1. Create an external virtual switch (if you don’t already have one)
+New-VMSwitch -Name "ExternalSwitch" -NetAdapterName "Ethernet" -AllowManagementOS $true
+
+# 2. Create a new VM
+$vmName    = "dev-monorepo"
+$vhdPath   = "C:\HyperV\VirtualHardDisks\$vmName.vhdx"
+$isoPath   = "C:\ISOs\ubuntu-22.04.5-live-server-amd64.iso"  # download from https://releases.ubuntu.com/22.04/
+$mem       = 4GB
+$cpus      = 2
+New-VM -Name $vmName `
+       -MemoryStartupBytes $mem `
+       -Generation 2 `
+       -NewVHDPath $vhdPath `
+       -NewVHDSizeBytes 50GB `
+       -SwitchName "ExternalSwitch"
+
+# 3. Attach the Ubuntu Server ISO
+Add-VMDvdDrive -VMName $vmName -Path $isoPath
+
+# 4. Allocate processors
+Set-VMProcessor -VMName $vmName -Count $cpus
+
+# 5. Boot the VM
+Start-VM -Name $vmName
+
+# At this point, open the VM console in Hyper‑V Manager, and
+# go through the Ubuntu Server installer:
+#   • Choose your language, keyboard, etc.
+#   • Configure a normal user (e.g. `ubuntu`), password, and openSSH server.
+#   • Let the installer partition the disk and finish.
+```
+
+
 ```bash
 # 1. Install required packages
 sudo apt update

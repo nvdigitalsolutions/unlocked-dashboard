@@ -17,20 +17,17 @@ Both apps are basic starters. The backend exposes a single `Page` content type a
 ## Development
 
 1. Copy `.env.example` to `.env` and adjust values as needed.
-2. Install dependencies:
+2. Install dependencies inside the containers:
    ```bash
-   (cd backend && npm install)
-   (cd frontend && npm install)
+   docker compose run --rm backend npm install
+   docker compose run --rm frontend npm install
+   docker compose run --rm frontend npm run build
    ```
-3. Build the frontend:
-   ```bash
-   (cd frontend && npm run build)
-   ```
-4. Start the stack with Docker Compose:
+3. Start the stack with Docker Compose:
    ```bash
    docker compose up --build
    ```
-5. Visit `http://localhost:3000` for the frontend and `http://localhost:1337` for Strapi.
+4. Visit `http://localhost:3000` for the frontend and `http://localhost:1337` for Strapi.
 
 ## Running tests
 
@@ -98,11 +95,10 @@ cd unlocked-dashboard
 # Copy environment variables
 cp .env.example .env
 
-# Install dependencies
-(cd backend && npm install)
-
-(cd frontend && npm install)
-(cd frontend && npm run build)
+# Install dependencies inside the containers
+docker compose run --rm backend npm install
+docker compose run --rm frontend npm install
+docker compose run --rm frontend npm run build
 
 # Start services
 docker compose up --build

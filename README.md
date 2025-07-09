@@ -22,11 +22,15 @@ Both apps are basic starters. The backend exposes a single `Page` content type a
    (cd backend && npm install)
    (cd frontend && npm install)
    ```
-3. Start the stack with Docker Compose:
+3. Build the frontend:
+   ```bash
+   (cd frontend && npm run build)
+   ```
+4. Start the stack with Docker Compose:
    ```bash
    docker compose up --build
    ```
-4. Visit `http://localhost:3000` for the frontend and `http://localhost:1337` for Strapi.
+5. Visit `http://localhost:3000` for the frontend and `http://localhost:1337` for Strapi.
 
 ## Running tests
 
@@ -96,7 +100,9 @@ cp .env.example .env
 
 # Install dependencies
 (cd backend && npm install)
+
 (cd frontend && npm install)
+(cd frontend && npm run build)
 
 # Start services
 docker compose up --build

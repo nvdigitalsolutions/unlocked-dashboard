@@ -36,6 +36,7 @@ fi
 # Install project dependencies
 (cd backend && npm install)
 (cd frontend && npm install)
+(cd frontend && npm run build)
 
 # Copy example environment file if .env does not exist
 if [ ! -f .env ]; then

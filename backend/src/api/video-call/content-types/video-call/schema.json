@@ -1,0 +1,17 @@
+{
+  "collectionName": "video_calls",
+  "info": {
+    "singularName": "video-call",
+    "pluralName": "video-calls",
+    "displayName": "Video Call",
+    "description": "Video call sessions"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": { "type": "string" },
+    "meetingUrl": { "type": "string" },
+    "scheduledAt": { "type": "datetime" }
+  }
+}

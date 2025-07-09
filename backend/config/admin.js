@@ -5,4 +5,8 @@ module.exports = ({ env }) => ({
   apiToken: {
     salt: env('API_TOKEN_SALT'),
   },
+  preview: {
+    clientUrl: env('CLIENT_URL', 'http://localhost:3000'),
+    previewSecret: env('PREVIEW_SECRET', 'supersecret'),
+  },
 });

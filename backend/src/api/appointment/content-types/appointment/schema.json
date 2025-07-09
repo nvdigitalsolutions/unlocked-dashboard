@@ -1,0 +1,17 @@
+{
+  "collectionName": "appointments",
+  "info": {
+    "singularName": "appointment",
+    "pluralName": "appointments",
+    "displayName": "Appointment",
+    "description": "Customer appointments"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": { "type": "string" },
+    "scheduledAt": { "type": "datetime" },
+    "email": { "type": "email" }
+  }
+}

@@ -26,6 +26,7 @@ services:
       ADMIN_JWT_SECRET: changeme
       API_TOKEN_SALT: KUNIpgntw/t3kgRAQfCN0w==
       CLIENT_URL: http://localhost:3000
+      PREVIEW_SECRET: someRandomPreviewSecret
     ports:
       - '1337:1337'
     depends_on:

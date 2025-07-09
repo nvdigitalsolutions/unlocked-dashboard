@@ -33,4 +33,8 @@ fi
 
 # Build and start the application stack
 # (remove '--build' on subsequent runs for faster startup)
-docker compose up --build
+if command -v docker &>/dev/null && docker compose version &>/dev/null; then
+    docker compose up --build
+else
+    docker-compose up --build
+fi

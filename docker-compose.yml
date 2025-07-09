@@ -13,7 +13,7 @@ services:
     volumes:
       - ./backend:/app
       - backend-node-modules:/app/node_modules
-    command: sh -c "npm install && npm run build && npm run start"
+    command: npm run start
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
@@ -27,6 +27,9 @@ services:
       API_TOKEN_SALT: KUNIpgntw/t3kgRAQfCN0w==
       CLIENT_URL: http://localhost:3000
       PREVIEW_SECRET: someRandomPreviewSecret
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      VIDEO_CALL_PROVIDER_KEY: ${VIDEO_CALL_PROVIDER_KEY}
     ports:
       - '1337:1337'
     depends_on:
@@ -36,9 +39,10 @@ services:
     volumes:
       - ./frontend:/app
       - frontend-node-modules:/app/node_modules
-    command: sh -c "npm install && npm run build && npm start"
+    command: npm start
     environment:
       BACKEND_URL: http://localhost:1337
+      NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}
     ports:
       - '3000:3000'
     depends_on:

@@ -33,10 +33,17 @@ if ! groups "$USER" | grep -q docker; then
     echo "You may need to log out and back in or run 'newgrp docker' for group changes to take effect." >&2
 fi
 
-# Install project dependencies
-(cd backend && npm install)
-(cd frontend && npm install)
-(cd frontend && npm run build)
+# Install project dependencies inside the containers so the
+# named volumes get populated on first run.
+if command -v docker &>/dev/null && docker compose version &>/dev/null; then
+    docker compose run --rm backend npm install
+    docker compose run --rm frontend npm install
+    docker compose run --rm frontend npm run build
+else
+    docker-compose run --rm backend npm install
+    docker-compose run --rm frontend npm install
+    docker-compose run --rm frontend npm run build
+fi
 
 # Copy example environment file if .env does not exist
 if [ ! -f .env ]; then

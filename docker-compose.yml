@@ -13,7 +13,13 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      DATABASE_FILENAME: /app/data.db
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+      DATABASE_SSL: 'false'
       APP_KEYS: change_me
       CLIENT_URL: http://localhost:3000
     ports:

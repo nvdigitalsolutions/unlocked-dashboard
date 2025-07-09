@@ -5,9 +5,13 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build": "strapi build"
+    "build": "strapi build",
+    "test": "jest"
   },
   "dependencies": {
     "@strapi/strapi": "^4.14.4"
+  },
+  "devDependencies": {
+    "jest": "^29.6.1"
   }
 }

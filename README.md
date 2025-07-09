@@ -51,7 +51,7 @@ sudo apt update
 sudo apt install -y git curl docker.io docker-compose
 
 # 2. Clone the repository and run the setup script
-git clone <this-repo-url>
+git clone https://github.com/nvdigitalsolutions/unlocked-dashboard.git
 cd unlocked-dashboard
 ./scripts/setup_ubuntu_hyperv.sh
 ```

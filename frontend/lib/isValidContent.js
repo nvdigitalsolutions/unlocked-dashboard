@@ -24,7 +24,9 @@ export function isValidContent(content, resolver) {
   for (const id of keys) {
     const node = content[id];
     const typeName = getTypeName(node);
-    if (!typeName || !resolver[typeName]) {
+    const component = resolver[typeName];
+    if (!typeName || !component ||
+        (typeof component !== 'function' && typeof component !== 'object')) {
       return false;
     }
 

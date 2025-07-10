@@ -24,7 +24,7 @@ module.exports = {
     await roleService.updateRole(publicRole.id, {
       permissions: {
         ...publicRole.permissions,
-        'api::page.page': {
+        'api::page': {
           controllers: {
             page: {
               find: { enabled: true },
@@ -39,10 +39,10 @@ module.exports = {
     await roleService.updateRole(authRole.id, {
       permissions: {
         ...authRole.permissions,
-        'api::order.order': {
+        'api::order': {
           controllers: { order: { create: { enabled: true } } },
         },
-        'api::appointment.appointment': {
+        'api::appointment': {
           controllers: { appointment: { create: { enabled: true } } },
         },
       },

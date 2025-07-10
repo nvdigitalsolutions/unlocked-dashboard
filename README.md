@@ -55,6 +55,7 @@ repo-root/
    docker compose up --build
    ```
 3. Visit `http://localhost:3000` for the frontend and `http://localhost:1337` for Strapi.
+4. If you access the frontend using a different hostname or IP, set `ALLOWED_DEV_ORIGIN` in `.env` to that URL so Next.js allows cross-origin requests during development.
 
 ## Running tests
 

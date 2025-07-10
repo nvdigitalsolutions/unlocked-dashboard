@@ -65,6 +65,10 @@ if grep -q '^ALLOWED_DEV_ORIGIN=http://localhost:3000' .env; then
     echo "ALLOWED_DEV_ORIGIN set to http://${host_ip}:3000"
     sed -i "s|^NEXT_PUBLIC_BACKEND_URL=.*|NEXT_PUBLIC_BACKEND_URL=http://${host_ip}:1337|" .env
 fi
+# Set the React editor for Next.js dev overlay
+if ! grep -q '^REACT_EDITOR=' .env; then
+    echo 'REACT_EDITOR=atom' >> .env
+fi
 
 # Ensure docker-compose passes the JWT secret to the backend
 if ! grep -q 'JWT_SECRET:' docker-compose.yml; then

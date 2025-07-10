@@ -1,6 +1,17 @@
 # Full-Stack Monorepo: Next.js (Craft.js) Frontend & Strapi Backend
 
-This repository provides a minimal example of a full-stack project using a Next.js frontend and a Strapi backend. The setup uses Docker for local development and includes configuration files for deployment to DigitalOcean's App Platform.
+This repository provides an example of a full-stack project using a Next.js frontend and a Strapi backend. The setup uses Docker for local development and includes configuration files for deployment to DigitalOcean's App Platform with these features:
+
+- **Backend**
+  - Collection types for Pages, Products, Orders, Appointments and Video Calls.
+  - Appointment creation checks for time slot conflicts.
+  - Orders are created automatically from the Stripe webhook.
+  - Preview mode enabled via `CLIENT_URL` and `PREVIEW_SECRET`.
+- **Frontend**
+  - Pages for the dashboard, appointments, store and dynamic `[slug]` routes.
+  - Login form that stores the Strapi JWT using an API route.
+  - Preview and login API routes.
+  - The homepage is editable with Craft.js components.
 
 ## Structure
 
@@ -35,19 +46,6 @@ repo-root/
 ├── .dockerignore          # Docker ignore to reduce build context (e.g. node_modules)
 └── README.md              # Documentation for setup, usage, and deployment
 ```
-
-Both apps started as minimal starters but have been expanded with additional features:
-
-- **Backend**
-  - Collection types for Pages, Products, Orders, Appointments and Video Calls.
-  - Appointment creation checks for time slot conflicts.
-  - Orders are created automatically from the Stripe webhook.
-  - Preview mode enabled via `CLIENT_URL` and `PREVIEW_SECRET`.
-- **Frontend**
-  - Pages for the dashboard, appointments, store and dynamic `[slug]` routes.
-  - Login form that stores the Strapi JWT using an API route.
-  - Preview and login API routes.
-  - The homepage is editable with Craft.js components.
 
 ## Development
 

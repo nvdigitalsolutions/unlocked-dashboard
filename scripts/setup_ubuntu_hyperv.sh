@@ -46,6 +46,11 @@ if grep -q '^JWT_SECRET=changeme' .env; then
     sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$new_secret|" .env
 fi
 
+# Ensure docker-compose passes the JWT secret to the backend
+if ! grep -q 'JWT_SECRET:' docker-compose.yml; then
+    sed -i '/ADMIN_JWT_SECRET:/a\      JWT_SECRET: ${JWT_SECRET}' docker-compose.yml
+fi
+
 # Build and start the application stack
 # (remove '--build' on subsequent runs for faster startup)
 if command -v docker &>/dev/null && docker compose version &>/dev/null; then

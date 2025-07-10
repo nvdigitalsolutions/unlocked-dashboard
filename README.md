@@ -5,11 +5,35 @@ This repository provides a minimal example of a full-stack project using a Next.
 ## Structure
 
 ```
-backend/   # Strapi application
-frontend/  # Next.js application
-.dockerignore
-.env.example
-docker-compose.yml
+repo-root/
+├── frontend/              # Next.js 15+ app (Tailwind CSS, Craft.js builder)
+│   ├── pages/             # Next.js pages (dashboard, appointments, store, [slug].js, API routes)
+│   ├── components/        # React components (including Craft.js editor components)
+│   ├── lib/               # Utility libraries (e.g. auth helper, Stripe integration)
+│   ├── public/            # Public assets (if any)
+│   ├── tailwind.config.js # Tailwind CSS configuration
+│   ├── next.config.js     # Next.js configuration (env variables, etc.)
+│   ├── Dockerfile         # Dockerfile for containerizing the Next.js app
+│   └── package.json       # Frontend dependencies and scripts
+├── backend/               # Strapi v4 CMS app (Node.js headless CMS)
+│   ├── config/            # Configuration (database, server, middleware using env vars)
+│   ├── src/
+│   │   ├── api/           # Content type definitions (Pages, Products, Orders, etc.)
+│   │   ├── extensions/    # Extensions or custom code (e.g. controllers for Stripe webhooks)
+│   │   ├── index.js       # Strapi bootstrap file (seeds initial data on startup)
+│   │   └── ...            # (Other Strapi framework files)
+│   ├── Dockerfile         # Dockerfile for containerizing the Strapi app
+│   └── package.json       # Backend dependencies (Strapi, plugins, etc.)
+├── .github/
+│   └── workflows/
+│       └── deploy.yml     # GitHub Actions workflow for CI/CD to DigitalOcean
+├── .do/
+│   └── app.yaml           # DigitalOcean App Platform spec (defines services, env vars)
+├── docker-compose.yml     # Docker Compose for local dev (frontend + backend + database)
+├── .env.example           # Example environment variables (to be copied to .env and edited)
+├── .gitignore             # Git ignore for Node, logs, build artifacts, etc.
+├── .dockerignore          # Docker ignore to reduce build context (e.g. node_modules)
+└── README.md              # Documentation for setup, usage, and deployment
 ```
 
 Both apps started as minimal starters but have been expanded with additional features:

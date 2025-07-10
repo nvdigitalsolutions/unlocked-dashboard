@@ -46,6 +46,20 @@ if grep -q '^JWT_SECRET=changeme' .env; then
     sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$new_secret|" .env
 fi
 
+# Ensure the frontend talks to the backend via Docker's internal network.
+# Users sometimes change BACKEND_URL to the container IP, which breaks
+# communication when the IP changes. Force the service name instead.
+sed -i 's|^BACKEND_URL=.*|BACKEND_URL=http://backend:1337|' .env
+
+# If ALLOWED_DEV_ORIGIN is still set to localhost, update it to the
+# machine's LAN IP so the frontend can be accessed from other hosts
+# during development.
+if grep -q '^ALLOWED_DEV_ORIGIN=http://localhost:3000' .env; then
+    host_ip=$(hostname -I | awk '{print $1}')
+    sed -i "s|^ALLOWED_DEV_ORIGIN=.*|ALLOWED_DEV_ORIGIN=http://${host_ip}:3000|" .env
+    echo "ALLOWED_DEV_ORIGIN set to http://${host_ip}:3000"
+fi
+
 # Ensure docker-compose passes the JWT secret to the backend
 if ! grep -q 'JWT_SECRET:' docker-compose.yml; then
     sed -i '/ADMIN_JWT_SECRET:/a\      JWT_SECRET: ${JWT_SECRET}' docker-compose.yml

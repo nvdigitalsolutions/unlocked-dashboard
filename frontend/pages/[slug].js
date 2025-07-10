@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function Page({ page }) {
   if (!page) {
     return <p>Not Found</p>;

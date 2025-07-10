@@ -4,12 +4,20 @@ import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 import { isValidContent } from '../lib/isValidContent';
 
+const craftDisabled = process.env.NEXT_PUBLIC_DISABLE_CRAFTJS === 'true';
+
 const resolver = { Container, Text };
 
-const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), { ssr: false });
-const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), { ssr: false });
-const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), { ssr: false });
-const SaveButton = dynamic(() => import('../components/SaveButton').then(mod => mod.SaveButton), { ssr: false });
+let Editor = null;
+let Frame = null;
+let Element = null;
+let SaveButton = null;
+if (!craftDisabled) {
+  Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), { ssr: false });
+  Frame = dynamic(() => import('@craftjs/core').then((mod) => mod.Frame), { ssr: false });
+  Element = dynamic(() => import('@craftjs/core').then((mod) => mod.Element), { ssr: false });
+  SaveButton = dynamic(() => import('../components/SaveButton').then((mod) => mod.SaveButton), { ssr: false });
+}
 
 export default function Dashboard() {
   const [page, setPage] = useState(null);
@@ -55,6 +63,10 @@ export default function Dashboard() {
 
   if (!page) {
     return <p>Loading...</p>;
+  }
+
+  if (craftDisabled) {
+    return <p>{page.attributes?.title || 'Dashboard'}</p>;
   }
 
   const hasContent = isValidContent(content, resolver);

@@ -4,21 +4,31 @@ import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 import { isValidContent } from '../lib/isValidContent';
 
+const craftDisabled = process.env.NEXT_PUBLIC_DISABLE_CRAFTJS === 'true';
+
 const resolver = { Container, Text };
 
-const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), {
-  ssr: false,
-});
-const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), {
-  ssr: false,
-});
-const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), {
-  ssr: false,
-});
+let Editor = null;
+let Frame = null;
+let Element = null;
+if (!craftDisabled) {
+  Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), {
+    ssr: false,
+  });
+  Frame = dynamic(() => import('@craftjs/core').then((mod) => mod.Frame), {
+    ssr: false,
+  });
+  Element = dynamic(() => import('@craftjs/core').then((mod) => mod.Element), {
+    ssr: false,
+  });
+}
 
 export default function Page({ page }) {
   if (!page) {
     return <p>Not Found</p>;
+  }
+  if (craftDisabled) {
+    return <p>{page.title}</p>;
   }
   const hasContent = isValidContent(page.content, resolver);
 

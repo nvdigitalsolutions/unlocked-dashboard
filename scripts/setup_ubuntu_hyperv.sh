@@ -40,6 +40,12 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
+# Generate a JWT secret if the placeholder value is present
+if grep -q '^JWT_SECRET=changeme' .env; then
+    new_secret=$(node -e "console.log(require('crypto').randomBytes(32).toString('base64'))")
+    sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$new_secret|" .env
+fi
+
 # Build and start the application stack
 # (remove '--build' on subsequent runs for faster startup)
 if command -v docker &>/dev/null && docker compose version &>/dev/null; then

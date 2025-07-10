@@ -32,11 +32,17 @@ export default function Page({ page }) {
   );
 }
 
-export async function getStaticPaths() {
-  try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/pages`);
+  export async function getStaticPaths() {
+    try {
+    const url = `${process.env.BACKEND_URL}/api/pages`;
+    console.log('getStaticPaths fetch:', url);
+    const res = await fetch(url);
+    console.log('getStaticPaths status:', res.status);
     const data = await res.json();
-    const paths = data.data.map((p) => ({ params: { slug: p.attributes.slug } }));
+    if (!Array.isArray(data.data)) {
+      console.warn('Unexpected pages response:', data);
+    }
+    const paths = (data.data || []).map((p) => ({ params: { slug: p.attributes.slug } }));
     return { paths, fallback: true };
   } catch (err) {
     console.error(err);
@@ -46,9 +52,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=${params.slug}`);
+    const url = `${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=${params.slug}`;
+    console.log('getStaticProps fetch:', url);
+    const res = await fetch(url);
+    console.log('getStaticProps status:', res.status);
     const data = await res.json();
-    const page = data.data[0]?.attributes || null;
+    if (!Array.isArray(data.data)) {
+      console.warn('Unexpected page response:', data);
+    }
+    const page = (data.data && data.data[0]?.attributes) || null;
     return { props: { page }, revalidate: 60 };
   } catch (err) {
     console.error(err);

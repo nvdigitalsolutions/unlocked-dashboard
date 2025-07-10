@@ -47,6 +47,7 @@ services:
       BACKEND_URL: http://backend:1337
       ALLOWED_DEV_ORIGIN: ${ALLOWED_DEV_ORIGIN}
       NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}
+      REACT_EDITOR: ${REACT_EDITOR}
     ports:
       - '3000:3000'
     depends_on:

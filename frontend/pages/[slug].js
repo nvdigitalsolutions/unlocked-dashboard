@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 
+const resolver = { Container, Text };
+
 const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), {
   ssr: false,
 });
@@ -22,10 +24,11 @@ export default function Page({ page }) {
     typeof page.content === 'object' &&
     page.content.ROOT &&
     page.content.ROOT.type &&
+    resolver[page.content.ROOT.type] &&
     Object.keys(page.content).length > 0;
 
   return (
-    <Editor resolver={{ Container, Text }}>
+    <Editor resolver={resolver}>
       <Frame data={hasContent ? page.content : undefined}>
         {!hasContent && (
           <Element is={Container} padding="40px" canvas>

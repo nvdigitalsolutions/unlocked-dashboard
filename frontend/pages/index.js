@@ -27,18 +27,24 @@ export default function Home({ page }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const res = await fetch(
-      `${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=home`
-    );
+  export async function getStaticProps() {
+    try {
+    const url = `${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=home`;
+    console.log('getStaticProps(home) fetch:', url);
+    const res = await fetch(url);
+    console.log('getStaticProps(home) status:', res.status);
 
     if (!res.ok) {
+      const body = await res.text();
       console.warn(`Failed to load home page: ${res.status}`);
+      console.warn('Home page response body:', body);
       return { props: { page: null }, revalidate: 60 };
     }
 
     const data = await res.json();
+    if (!Array.isArray(data.data)) {
+      console.warn('Unexpected home page response:', data);
+    }
     const page = Array.isArray(data.data) && data.data.length > 0
       ? data.data[0].attributes
       : null;

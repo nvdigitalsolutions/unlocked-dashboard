@@ -24,3 +24,11 @@ test('returns true for valid content', () => {
   };
   expect(isValidContent(content, resolver)).toBe(true);
 });
+
+test('handles type objects with resolvedName', () => {
+  const content = {
+    ROOT: { type: { resolvedName: 'Container' } },
+    node1: { type: { resolvedName: 'Text' } },
+  };
+  expect(isValidContent(content, resolver)).toBe(true);
+});

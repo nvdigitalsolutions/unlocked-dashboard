@@ -1,3 +1,16 @@
+function getTypeName(node) {
+  if (!node || !node.type) {
+    return null;
+  }
+  if (typeof node.type === 'string') {
+    return node.type;
+  }
+  if (typeof node.type === 'object' && node.type.resolvedName) {
+    return node.type.resolvedName;
+  }
+  return null;
+}
+
 export function isValidContent(content, resolver) {
   if (!content || typeof content !== 'object') {
     return false;
@@ -10,7 +23,8 @@ export function isValidContent(content, resolver) {
 
   for (const id of keys) {
     const node = content[id];
-    if (!node || !node.type || !resolver[node.type]) {
+    const typeName = getTypeName(node);
+    if (!typeName || !resolver[typeName]) {
       return false;
     }
 

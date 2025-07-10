@@ -1,14 +1,34 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
+import { Container } from '../components/Container';
+import { Text } from '../components/Text';
+
+const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), {
+  ssr: false,
+});
+const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), {
+  ssr: false,
+});
+const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), {
+  ssr: false,
+});
 
 export default function Page({ page }) {
   if (!page) {
     return <p>Not Found</p>;
   }
+  const hasContent = page.content && Object.keys(page.content).length > 0;
+
   return (
-    <div>
-      <h1>{page.title}</h1>
-      <pre>{JSON.stringify(page.content, null, 2)}</pre>
-    </div>
+    <Editor resolver={{ Container, Text }}>
+      <Frame data={hasContent ? page.content : undefined}>
+        {!hasContent && (
+          <Element is={Container} padding="40px" canvas>
+            <Text text={page.title} fontSize="24px" />
+          </Element>
+        )}
+      </Frame>
+    </Editor>
   );
 }
 

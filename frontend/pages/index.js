@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
+import { isValidContent } from '../lib/isValidContent';
 
 const resolver = { Container, Text };
 
@@ -14,13 +15,7 @@ export default function Home({ page }) {
     return <p>Not Found</p>;
   }
 
-  const hasContent =
-    page.content &&
-    typeof page.content === 'object' &&
-    page.content.ROOT &&
-    page.content.ROOT.type &&
-    resolver[page.content.ROOT.type] &&
-    Object.keys(page.content).length > 0;
+  const hasContent = isValidContent(page.content, resolver);
 
   return (
     <Editor resolver={resolver}>

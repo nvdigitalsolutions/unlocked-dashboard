@@ -24,6 +24,7 @@ services:
       DATABASE_SSL: 'false'
       APP_KEYS: change_me
       ADMIN_JWT_SECRET: changeme
+      JWT_SECRET: ${JWT_SECRET}
       API_TOKEN_SALT: KUNIpgntw/t3kgRAQfCN0w==
       CLIENT_URL: http://localhost:3000
       PREVIEW_SECRET: someRandomPreviewSecret

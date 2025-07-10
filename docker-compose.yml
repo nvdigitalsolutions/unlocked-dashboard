@@ -44,7 +44,7 @@ services:
     # volume overrides the image's files.
     command: sh -c "npm install && npm run dev"
     environment:
-      BACKEND_URL: http://localhost:1337
+      BACKEND_URL: http://backend:1337
       NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}
     ports:
       - '3000:3000'

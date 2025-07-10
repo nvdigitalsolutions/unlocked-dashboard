@@ -40,7 +40,9 @@ services:
     volumes:
       - ./frontend:/app
       - frontend-node-modules:/app/node_modules
-    command: npm run dev
+    # Install dependencies on the first run because the node_modules
+    # volume overrides the image's files.
+    command: sh -c "npm install && npm run dev"
     environment:
       BACKEND_URL: http://localhost:1337
       NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}

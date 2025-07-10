@@ -1,13 +1,13 @@
 import React from 'react';
-import { Editor, Frame, Element } from '@craftjs/core';
+import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 
-export default function Home() {
-  if (typeof window === 'undefined') {
-    return null;
-  }
+const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), { ssr: false });
+const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), { ssr: false });
+const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), { ssr: false });
 
+export default function Home() {
   return (
     <Editor resolver={{ Container, Text }}>
       <Frame>

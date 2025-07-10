@@ -17,7 +17,10 @@ module.exports = {
     }
 
     const roleService = strapi.plugin('users-permissions').service('role');
-    const publicRole = await roleService.findOne(1);
+    // In Strapi, role id 1 is "Authenticated" and id 2 is "Public".
+    // The previous code assumed the opposite, which meant the
+    // public role never received the necessary read permissions.
+    const publicRole = await roleService.findOne(2);
     await roleService.updateRole(publicRole.id, {
       permissions: {
         ...publicRole.permissions,
@@ -32,7 +35,7 @@ module.exports = {
       },
     });
 
-    const authRole = await roleService.findOne(2);
+    const authRole = await roleService.findOne(1);
     await roleService.updateRole(authRole.id, {
       permissions: {
         ...authRole.permissions,

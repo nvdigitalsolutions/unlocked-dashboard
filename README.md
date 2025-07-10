@@ -59,8 +59,9 @@ repo-root/
 3. Visit `http://localhost:3000` for the frontend and `http://localhost:1337` for Strapi.
 4. If you access the frontend using a different hostname or IP, set `ALLOWED_DEV_ORIGIN` in `.env` to that URL. Multiple origins can be provided as a comma-separated list so Next.js allows cross-origin requests during development. For example:
    ```bash
-   ALLOWED_DEV_ORIGIN=http://localhost:3000,http://192.168.2.20:3000
-   ```
+    ALLOWED_DEV_ORIGIN=http://localhost:3000,http://192.168.2.20:3000
+    ```
+5. To disable the Craft.js editor on the frontend, set `NEXT_PUBLIC_DISABLE_CRAFTJS=true` in `.env`.
 
 ## Running tests
 

@@ -66,7 +66,14 @@ export default function Dashboard() {
   }
 
   if (craftDisabled) {
-    return <p>{page.attributes?.title || 'Dashboard'}</p>;
+    return (
+      <div>
+        <p>{page.attributes?.title || 'Dashboard'}</p>
+        {page.attributes?.content && (
+          <pre>{JSON.stringify(page.attributes.content, null, 2)}</pre>
+        )}
+      </div>
+    );
   }
 
   const hasContent = isValidContent(content, resolver);

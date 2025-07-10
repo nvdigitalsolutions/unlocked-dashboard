@@ -11,7 +11,7 @@ This repository provides an example of a full-stack project using a Next.js fron
   - Pages for the dashboard, appointments, store and dynamic `[slug]` routes.
   - Login form that stores the Strapi JWT using an API route.
   - Preview and login API routes.
-  - The homepage is editable with Craft.js components.
+  - All pages from Strapi, including the homepage, are editable with Craft.js components.
 
 ## Structure
 

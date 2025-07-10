@@ -12,7 +12,12 @@ export default function Home({ page }) {
     return <p>Not Found</p>;
   }
 
-  const hasContent = page.content && Object.keys(page.content).length > 0;
+  const hasContent =
+    page.content &&
+    typeof page.content === 'object' &&
+    page.content.ROOT &&
+    page.content.ROOT.type &&
+    Object.keys(page.content).length > 0;
 
   return (
     <Editor resolver={{ Container, Text }}>

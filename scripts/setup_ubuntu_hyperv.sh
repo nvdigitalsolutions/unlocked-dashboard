@@ -46,10 +46,15 @@ if grep -q '^JWT_SECRET=changeme' .env; then
     sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$new_secret|" .env
 fi
 
-# Ensure the frontend talks to the backend via Docker's internal network.
-# Users sometimes change BACKEND_URL to the container IP, which breaks
-# communication when the IP changes. Force the service name instead.
-sed -i 's|^BACKEND_URL=.*|BACKEND_URL=http://backend:1337|' .env
+# Ensure the frontend talks to the backend via Docker's internal network for
+# server-side requests. If NEXT_PUBLIC_BACKEND_URL is not set, default it to the
+# same address so client-side code can reach the API when accessed locally.
+if ! grep -q '^BACKEND_URL=' .env; then
+    echo 'BACKEND_URL=http://backend:1337' >> .env
+fi
+if ! grep -q '^NEXT_PUBLIC_BACKEND_URL=' .env; then
+    echo 'NEXT_PUBLIC_BACKEND_URL=http://localhost:1337' >> .env
+fi
 
 # If ALLOWED_DEV_ORIGIN is still set to localhost, update it to the
 # machine's LAN IP so the frontend can be accessed from other hosts
@@ -58,6 +63,7 @@ if grep -q '^ALLOWED_DEV_ORIGIN=http://localhost:3000' .env; then
     host_ip=$(hostname -I | awk '{print $1}')
     sed -i "s|^ALLOWED_DEV_ORIGIN=.*|ALLOWED_DEV_ORIGIN=http://${host_ip}:3000|" .env
     echo "ALLOWED_DEV_ORIGIN set to http://${host_ip}:3000"
+    sed -i "s|^NEXT_PUBLIC_BACKEND_URL=.*|NEXT_PUBLIC_BACKEND_URL=http://${host_ip}:1337|" .env
 fi
 
 # Ensure docker-compose passes the JWT secret to the backend

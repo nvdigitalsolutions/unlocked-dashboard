@@ -3,8 +3,10 @@
 module.exports = {
   register() {},
   async bootstrap() {
-    const pageCount = await strapi.entityService.count('api::page.page');
-    if (pageCount === 0) {
+    const existingHome = await strapi.entityService.findMany('api::page.page', {
+      filters: { slug: 'home' },
+    });
+    if (existingHome.length === 0) {
       await strapi.entityService.create('api::page.page', {
         data: {
           title: 'Home',

@@ -129,7 +129,7 @@ The script will:
 
 1. Install Node.js 18 using NodeSource.
 2. Ensure Docker is running and your user is part of the `docker` group.
-3. Copy `.env.example` to `.env` if needed.
+3. Copy `.env.example` to `.env` if needed and generate a random `JWT_SECRET`.
 4. Install backend and frontend dependencies.
 5. Build and launch the Docker containers.
 

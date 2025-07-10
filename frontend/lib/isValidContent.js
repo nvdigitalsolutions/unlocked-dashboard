@@ -21,6 +21,10 @@ export function isValidContent(content, resolver) {
     return false;
   }
 
+  if (!content.ROOT) {
+    return false;
+  }
+
   for (const id of keys) {
     const node = content[id];
     const typeName = getTypeName(node);

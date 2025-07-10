@@ -9,6 +9,13 @@ test('returns false for empty content', () => {
   expect(isValidContent({}, resolver)).toBe(false);
 });
 
+test('returns false when ROOT node is missing', () => {
+  const content = {
+    node1: { type: 'Container' },
+  };
+  expect(isValidContent(content, resolver)).toBe(false);
+});
+
 test('returns false when any node type is unknown', () => {
   const content = {
     ROOT: { type: 'Container' },

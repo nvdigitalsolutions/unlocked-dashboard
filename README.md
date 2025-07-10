@@ -138,9 +138,9 @@ The script will:
 2. Ensure Docker is running and your user is part of the `docker` group.
 3. Copy `.env.example` to `.env` if needed and generate a random `JWT_SECRET`.
 4. Install backend and frontend dependencies.
-5. Build and launch the Docker containers.
+5. Build the Docker containers and display a command you can run to start them.
 
-After it finishes you can visit the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.
+After running `docker compose up --build` you can visit the frontend at `http://localhost:3000` and the Strapi admin at `http://localhost:1337`.
 
 If Docker fails with a permission denied error when accessing `/var/run/docker.sock`, open a new terminal session or run `newgrp docker` so your shell picks up the new group membership, then rerun the last command.
 

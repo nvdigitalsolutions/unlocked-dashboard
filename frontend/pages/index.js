@@ -32,8 +32,17 @@ export async function getStaticProps() {
     const res = await fetch(
       `${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=home`
     );
+
+    if (!res.ok) {
+      console.warn(`Failed to load home page: ${res.status}`);
+      return { props: { page: null }, revalidate: 60 };
+    }
+
     const data = await res.json();
-    const page = data.data[0]?.attributes || null;
+    const page = Array.isArray(data.data) && data.data.length > 0
+      ? data.data[0].attributes
+      : null;
+
     return { props: { page }, revalidate: 60 };
   } catch (err) {
     console.error(err);

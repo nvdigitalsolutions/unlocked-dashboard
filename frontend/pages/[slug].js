@@ -3,27 +3,22 @@ import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 import { isValidContent } from '../lib/isValidContent';
-
-const craftDisabled = process.env.NEXT_PUBLIC_DISABLE_CRAFTJS === 'true';
+import { useCraftDisabled } from '../lib/useCraftDisabled';
 
 const resolver = { Container, Text };
 
-let Editor = null;
-let Frame = null;
-let Element = null;
-if (!craftDisabled) {
-  Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), {
-    ssr: false,
-  });
-  Frame = dynamic(() => import('@craftjs/core').then((mod) => mod.Frame), {
-    ssr: false,
-  });
-  Element = dynamic(() => import('@craftjs/core').then((mod) => mod.Element), {
-    ssr: false,
-  });
-}
+const Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), {
+  ssr: false,
+});
+const Frame = dynamic(() => import('@craftjs/core').then((mod) => mod.Frame), {
+  ssr: false,
+});
+const Element = dynamic(() => import('@craftjs/core').then((mod) => mod.Element), {
+  ssr: false,
+});
 
 export default function Page({ page }) {
+  const craftDisabled = useCraftDisabled();
   if (!page) {
     return <p>Not Found</p>;
   }

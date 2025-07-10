@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 import { isValidContent } from '../lib/isValidContent';
+import { useCraftDisabled } from '../lib/useCraftDisabled';
 
 const resolver = { Container, Text };
 
@@ -11,8 +12,21 @@ const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), { ss
 const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), { ssr: false });
 
 export default function Home({ page }) {
+  const craftDisabled = useCraftDisabled();
+
   if (!page) {
     return <p>Not Found</p>;
+  }
+
+  if (craftDisabled) {
+    return (
+      <div>
+        <p>{page.title}</p>
+        {page.content && (
+          <pre>{JSON.stringify(page.content, null, 2)}</pre>
+        )}
+      </div>
+    );
   }
 
   const hasContent = isValidContent(page.content, resolver);

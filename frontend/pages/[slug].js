@@ -28,7 +28,14 @@ export default function Page({ page }) {
     return <p>Not Found</p>;
   }
   if (craftDisabled) {
-    return <p>{page.title}</p>;
+    return (
+      <div>
+        <p>{page.title}</p>
+        {page.content && (
+          <pre>{JSON.stringify(page.content, null, 2)}</pre>
+        )}
+      </div>
+    );
   }
   const hasContent = isValidContent(page.content, resolver);
 

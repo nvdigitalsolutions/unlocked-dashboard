@@ -49,7 +49,7 @@ repo-root/
 
 ## Development
 
-1. Copy `.env.example` to `.env` and adjust values as needed (particularly `APP_KEYS`, `ADMIN_JWT_SECRET` and `API_TOKEN_SALT`).
+1. Copy `.env.example` to `.env` and adjust values as needed (particularly `APP_KEYS`, `ADMIN_JWT_SECRET`, `API_TOKEN_SALT` and `JWT_SECRET`).
 2. Start the stack with Docker Compose (dependencies will be installed automatically):
    ```bash
    docker compose up --build

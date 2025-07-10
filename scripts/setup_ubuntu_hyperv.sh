@@ -75,10 +75,11 @@ if ! grep -q 'JWT_SECRET:' docker-compose.yml; then
     sed -i '/ADMIN_JWT_SECRET:/a\      JWT_SECRET: ${JWT_SECRET}' docker-compose.yml
 fi
 
-# Build and start the application stack
-# (remove '--build' on subsequent runs for faster startup)
+# Final message with instructions to start the stack
+echo
+echo "Setup complete! Review the .env file then launch the containers with:"
 if command -v docker &>/dev/null && docker compose version &>/dev/null; then
-    docker compose up --build
+    echo "  docker compose up --build"
 else
-    docker-compose up --build
+    echo "  docker-compose up --build"
 fi

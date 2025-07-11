@@ -20,5 +20,9 @@
   },
   "devDependencies": {
     "jest": "^30.0.4"
+  },
+  "overrides": {
+    "@strapi/strapi": "^5.18.0",
+    "@strapi/plugin-users-permissions": "^5.18.0"
   }
 }

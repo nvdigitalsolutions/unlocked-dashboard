@@ -3,9 +3,9 @@
 module.exports = {
   register() {},
   async bootstrap() {
-    const existingHome = await strapi.entityService.findMany('api::page.page', {
-      filters: { slug: 'home' },
-    });
+    const existingHome = await strapi.db
+      .query('api::page.page')
+      .findMany({ where: { slug: 'home' } });
     if (existingHome.length === 0) {
       const defaultBlocks = [
         {
@@ -23,21 +23,27 @@ module.exports = {
       });
     }
 
-    const existingHeader = await strapi.entityService.findMany('api::header.header');
+    const existingHeader = await strapi.db
+      .query('api::header.header')
+      .findMany();
     if (existingHeader.length === 0) {
       await strapi.entityService.create('api::header.header', {
         data: { siteName: 'My Site' },
       });
     }
 
-    const existingFooter = await strapi.entityService.findMany('api::footer.footer');
+    const existingFooter = await strapi.db
+      .query('api::footer.footer')
+      .findMany();
     if (existingFooter.length === 0) {
       await strapi.entityService.create('api::footer.footer', {
         data: { text: '© 2024 My Site' },
       });
     }
 
-    const existingGlobal = await strapi.entityService.findMany('api::global.global');
+    const existingGlobal = await strapi.db
+      .query('api::global.global')
+      .findMany();
     if (existingGlobal.length === 0) {
       await strapi.entityService.create('api::global.global', {
         data: { brandColor: '#ff0000', metaTitle: 'My Site', metaDescription: 'Site powered by Strapi v5' },

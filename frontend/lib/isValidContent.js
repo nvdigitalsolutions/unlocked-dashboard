@@ -17,8 +17,46 @@ export function isValidContent(content, resolver) {
   }
 
   const DOM_ELEMENTS = [
-    'a', 'div', 'p', 'span', 'img', 'ul', 'li', 'h1', 'h2', 'h3', 'h4', 'h5',
-    'h6', 'button', 'section', 'article', 'header', 'footer', 'nav', 'main'
+    'a',
+    'article',
+    'button',
+    'circle',
+    'div',
+    'em',
+    'footer',
+    'form',
+    'h1',
+    'h2',
+    'h3',
+    'h4',
+    'h5',
+    'h6',
+    'header',
+    'hr',
+    'img',
+    'input',
+    'label',
+    'li',
+    'main',
+    'nav',
+    'option',
+    'p',
+    'path',
+    'rect',
+    'section',
+    'select',
+    'span',
+    'strong',
+    'svg',
+    'table',
+    'tbody',
+    'td',
+    'text',
+    'textarea',
+    'th',
+    'thead',
+    'tr',
+    'ul'
   ];
 
   const keys = Object.keys(content);

@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import { serialize } from 'cookie';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     }
     res.setHeader(
       'Set-Cookie',
-      cookie.serialize('jwt', data.jwt, {
+      serialize('jwt', data.jwt, {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
@@ -26,6 +26,7 @@ export default async function handler(req, res) {
     );
     res.status(200).json({ user: data.user });
   } catch (err) {
+    console.error('Login error:', err);
     res.status(500).json({ message: 'Error connecting to backend' });
   }
 }

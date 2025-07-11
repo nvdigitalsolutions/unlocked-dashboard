@@ -3,9 +3,10 @@ import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 import { isValidContent } from '../lib/isValidContent';
+import { domResolver } from '../lib/domResolver';
 import { useCraftDisabled } from '../lib/useCraftDisabled';
 
-const resolver = { Container, Text };
+const resolver = { ...domResolver, Container, Text };
 
 const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), {
   ssr: false,

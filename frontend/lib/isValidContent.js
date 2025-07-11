@@ -11,12 +11,7 @@ function getTypeName(node) {
   return null;
 }
 
-export function isValidContent(content, resolver) {
-  if (!content || typeof content !== 'object') {
-    return false;
-  }
-
-  const DOM_ELEMENTS = [
+export const DOM_ELEMENTS = [
     'a',
     'article',
     'button',
@@ -57,7 +52,12 @@ export function isValidContent(content, resolver) {
     'thead',
     'tr',
     'ul'
-  ];
+];
+
+export function isValidContent(content, resolver) {
+  if (!content || typeof content !== 'object') {
+    return false;
+  }
 
   const keys = Object.keys(content);
   if (keys.length === 0) {

@@ -19,6 +19,7 @@ Text.propTypes = {
 };
 
 Text.craft = {
+  displayName: 'Text',
   props: {
     text: 'Edit me',
     fontSize: '16px',

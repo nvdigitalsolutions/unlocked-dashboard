@@ -19,6 +19,7 @@ Container.propTypes = {
 };
 
 Container.craft = {
+  displayName: 'Container',
   props: {
     padding: '20px',
   },

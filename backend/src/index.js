@@ -7,11 +7,26 @@ module.exports = {
       filters: { slug: 'home' },
     });
     if (existingHome.length === 0) {
+      // Seed the homepage with a simple Container/Text structure so the
+      // frontend isn't empty on first run.
+      const defaultHomeContent = {
+        ROOT: {
+          type: 'Container',
+          isCanvas: true,
+          props: { padding: '40px' },
+          nodes: ['text1'],
+        },
+        text1: {
+          type: 'Text',
+          props: { text: 'Welcome to the frontend', fontSize: '24px' },
+        },
+      };
+
       await strapi.entityService.create('api::page.page', {
         data: {
           title: 'Home',
           slug: 'home',
-          content: {},
+          content: defaultHomeContent,
         },
       });
     }

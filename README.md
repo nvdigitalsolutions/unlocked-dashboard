@@ -74,10 +74,23 @@ script:
 ```bash
 scripts/reset_db_dev.sh
 ```
-
-It drops all tables from the `strapi` Postgres database and recreates the `public`
-schema so the backend starts with a fresh state the next time you run
+This will drop all tables from the `strapi` Postgres database and recreate the
+`public` schema so the backend starts with a fresh state the next time you run
 `docker compose up`.
+
+If you want to run the command manually, execute:
+
+```bash
+docker compose exec db psql -U strapi -d strapi -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+```
+
+To completely wipe the database volume, stop the containers and remove the
+volume:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
 
 ### Strapi v5 layout
 

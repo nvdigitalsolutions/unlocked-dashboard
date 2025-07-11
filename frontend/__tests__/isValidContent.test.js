@@ -47,3 +47,11 @@ test('allows basic HTML elements', () => {
   };
   expect(isValidContent(content, resolver)).toBe(true);
 });
+
+test('allows extended HTML elements like svg', () => {
+  const content = {
+    ROOT: { type: 'svg', nodes: ['c1'] },
+    c1: { type: 'circle' },
+  };
+  expect(isValidContent(content, resolver)).toBe(true);
+});

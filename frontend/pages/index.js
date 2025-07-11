@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
@@ -7,9 +7,18 @@ import { useCraftDisabled } from '../lib/useCraftDisabled';
 
 const resolver = { Container, Text };
 
-const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), { ssr: false });
-const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), { ssr: false });
-const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), { ssr: false });
+const Editor = dynamic(() => import('@craftjs/core').then(mod => mod.Editor), {
+  ssr: false,
+  suspense: true,
+});
+const Frame = dynamic(() => import('@craftjs/core').then(mod => mod.Frame), {
+  ssr: false,
+  suspense: true,
+});
+const Element = dynamic(() => import('@craftjs/core').then(mod => mod.Element), {
+  ssr: false,
+  suspense: true,
+});
 
 export default function Home({ page }) {
   const craftDisabled = useCraftDisabled();
@@ -32,15 +41,17 @@ export default function Home({ page }) {
   const hasContent = isValidContent(page.content, resolver);
 
   return (
-    <Editor resolver={resolver} enabled={!craftDisabled}>
-      <Frame data={hasContent ? page.content : undefined}>
-        {!hasContent && (
-          <Element is={Container} padding="40px" canvas>
-            <Text text="Welcome to the frontend" fontSize="24px" />
-          </Element>
-        )}
-      </Frame>
-    </Editor>
+    <Suspense fallback={null}>
+      <Editor resolver={resolver} enabled={!craftDisabled}>
+        <Frame data={hasContent ? page.content : undefined}>
+          {!hasContent && (
+            <Element is={Container} padding="40px" canvas>
+              <Text text="Welcome to the frontend" fontSize="24px" />
+            </Element>
+          )}
+        </Frame>
+      </Editor>
+    </Suspense>
   );
 }
 

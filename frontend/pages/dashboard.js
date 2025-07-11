@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
@@ -13,10 +13,22 @@ let Frame = null;
 let Element = null;
 let SaveButton = null;
 if (!craftDisabled) {
-  Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), { ssr: false });
-  Frame = dynamic(() => import('@craftjs/core').then((mod) => mod.Frame), { ssr: false });
-  Element = dynamic(() => import('@craftjs/core').then((mod) => mod.Element), { ssr: false });
-  SaveButton = dynamic(() => import('../components/SaveButton').then((mod) => mod.SaveButton), { ssr: false });
+  Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), {
+    ssr: false,
+    suspense: true,
+  });
+  Frame = dynamic(() => import('@craftjs/core').then((mod) => mod.Frame), {
+    ssr: false,
+    suspense: true,
+  });
+  Element = dynamic(() => import('@craftjs/core').then((mod) => mod.Element), {
+    ssr: false,
+    suspense: true,
+  });
+  SaveButton = dynamic(() => import('../components/SaveButton').then((mod) => mod.SaveButton), {
+    ssr: false,
+    suspense: true,
+  });
 }
 
 export default function Dashboard() {
@@ -81,21 +93,23 @@ export default function Dashboard() {
   return (
     <div>
       <SaveButton onSave={handleSave} />
-      <Editor resolver={resolver} onNodesChange={(query) => {
-        try {
-          setContent(JSON.parse(query.serialize()));
-        } catch (e) {
-          console.error('Failed to parse nodes', e);
-        }
-      }}>
-        <Frame data={hasContent ? content : undefined}>
-          {!hasContent && (
-            <Element is={Container} padding="40px" canvas>
-              <Text text="Welcome" fontSize="24px" />
-            </Element>
-          )}
-        </Frame>
-      </Editor>
+      <Suspense fallback={null}>
+        <Editor resolver={resolver} onNodesChange={(query) => {
+          try {
+            setContent(JSON.parse(query.serialize()));
+          } catch (e) {
+            console.error('Failed to parse nodes', e);
+          }
+        }}>
+          <Frame data={hasContent ? content : undefined}>
+            {!hasContent && (
+              <Element is={Container} padding="40px" canvas>
+                <Text text="Welcome" fontSize="24px" />
+              </Element>
+            )}
+          </Frame>
+        </Editor>
+      </Suspense>
     </div>
   );
 }

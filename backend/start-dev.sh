@@ -1,8 +1,15 @@
 #!/usr/bin/env sh
 set -e
 
-# Verify required secrets are set and not using placeholder values
-required_vars="APP_KEYS ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SALT"
+# Generate APP_KEYS if unset or using a placeholder value
+if [ -z "${APP_KEYS:-}" ] || printf '%s' "$APP_KEYS" | grep -Eq '^changeme|^change_me'; then
+  APP_KEYS=$(node -e "console.log(Array.from({length:4}, () => require('crypto').randomBytes(16).toString('hex')).join(','))")
+  export APP_KEYS
+  echo "Generated APP_KEYS for development"
+fi
+
+# Verify remaining required secrets are set and not using placeholder values
+required_vars="ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SALT"
 
 for var in $required_vars; do
   value=$(eval "printf '%s' \"\${$var}\"")

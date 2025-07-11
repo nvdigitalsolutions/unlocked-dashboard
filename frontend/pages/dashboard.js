@@ -12,6 +12,7 @@ let Editor = null;
 let Frame = null;
 let Element = null;
 let SaveButton = null;
+let Sidebar = null;
 if (!craftDisabled) {
   Editor = dynamic(() => import('@craftjs/core').then((mod) => mod.Editor), {
     ssr: false,
@@ -26,6 +27,10 @@ if (!craftDisabled) {
     suspense: true,
   });
   SaveButton = dynamic(() => import('../components/SaveButton').then((mod) => mod.SaveButton), {
+    ssr: false,
+    suspense: true,
+  });
+  Sidebar = dynamic(() => import('../components/Sidebar').then((mod) => mod.Sidebar), {
     ssr: false,
     suspense: true,
   });
@@ -94,6 +99,9 @@ export default function Dashboard() {
     <div>
       <SaveButton onSave={handleSave} />
       <Suspense fallback={null}>
+        <Sidebar />
+      </Suspense>
+      <Suspense fallback={null}>
         <Editor resolver={resolver} onNodesChange={(query) => {
           try {
             setContent(JSON.parse(query.serialize()));
@@ -112,4 +120,33 @@ export default function Dashboard() {
       </Suspense>
     </div>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const cookies = req.headers.cookie ? require('cookie').parse(req.headers.cookie) : {};
+  const jwt = cookies.jwt;
+  if (!jwt) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+  try {
+    const res = await fetch(`${process.env.BACKEND_URL}/api/users/me`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    if (!res.ok) {
+      return {
+        redirect: { destination: '/login', permanent: false },
+      };
+    }
+  } catch (err) {
+    console.error('JWT validation failed', err);
+    return {
+      redirect: { destination: '/login', permanent: false },
+    };
+  }
+  return { props: {} };
 }

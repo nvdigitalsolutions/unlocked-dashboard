@@ -1,8 +1,9 @@
 'use strict';
 
+const { createCoreController } = require('@strapi/strapi').factories;
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-module.exports = {
+module.exports = createCoreController('api::order.order', ({ strapi }) => ({
   async webhook(ctx) {
     const sig = ctx.request.headers['stripe-signature'];
     let event;
@@ -28,4 +29,4 @@ module.exports = {
 
     ctx.body = { received: true };
   },
-};
+}));

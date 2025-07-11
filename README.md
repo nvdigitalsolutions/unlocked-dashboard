@@ -66,6 +66,19 @@ repo-root/
     ```
 5. To disable the Craft.js editor on the frontend, set `NEXT_PUBLIC_DISABLE_CRAFTJS=true` in `.env`.
 
+### Resetting the development database
+
+If Strapi migrations get stuck or you simply want a clean database, run the helper
+script:
+
+```bash
+scripts/reset_db_dev.sh
+```
+
+It drops all tables from the `strapi` Postgres database and recreates the `public`
+schema so the backend starts with a fresh state the next time you run
+`docker compose up`.
+
 ### Strapi v5 layout
 
 The backend now uses **Strapi v5** with a component‑driven architecture:

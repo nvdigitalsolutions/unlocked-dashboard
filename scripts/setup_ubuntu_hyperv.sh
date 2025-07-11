@@ -41,9 +41,16 @@ if [ ! -f .env ]; then
 fi
 
 # Generate a JWT secret if the placeholder value is present
+# Generate a JWT secret if the placeholder value is present
 if grep -q '^JWT_SECRET=changeme' .env; then
     new_secret=$(node -e "console.log(require('crypto').randomBytes(32).toString('base64'))")
     sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$new_secret|" .env
+fi
+
+# Generate a transfer token salt if the placeholder value is present
+if grep -q '^TRANSFER_TOKEN_SALT=changeme' .env; then
+    new_transfer_salt=$(node -e "console.log(require('crypto').randomBytes(16).toString('base64'))")
+    sed -i "s|^TRANSFER_TOKEN_SALT=.*|TRANSFER_TOKEN_SALT=$new_transfer_salt|" .env
 fi
 
 # Ensure the frontend talks to the backend via Docker's internal network for
@@ -73,6 +80,11 @@ fi
 # Ensure docker-compose passes the JWT secret to the backend
 if ! grep -q 'JWT_SECRET:' docker-compose.yml; then
     sed -i '/ADMIN_JWT_SECRET:/a\      JWT_SECRET: ${JWT_SECRET}' docker-compose.yml
+fi
+
+# Ensure docker-compose passes the transfer token salt to the backend
+if ! grep -q 'TRANSFER_TOKEN_SALT:' docker-compose.yml; then
+    sed -i '/API_TOKEN_SALT:/a\      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}' docker-compose.yml
 fi
 
 # Final message with instructions to start the stack

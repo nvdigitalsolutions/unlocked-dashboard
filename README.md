@@ -50,10 +50,9 @@ repo-root/
 
 ## Development
 
-1. Copy `.env.example` to `.env` and adjust values as needed (particularly `APP_KEYS`, `ADMIN_JWT_SECRET`, `API_TOKEN_SALT` and `JWT_SECRET`).
-   If you plan to access the stack from another machine on your network, set
-   `HOST=0.0.0.0` for Strapi and update `NEXT_PUBLIC_BACKEND_URL` and
-   `FRONTEND_URL` to the host's reachable IP (e.g. `http://192.168.2.20:3000`).
+1. Copy `.env.example` to `.env` and adjust values as needed (particularly `APP_KEYS`, `ADMIN_JWT_SECRET`, `API_TOKEN_SALT`, `TRANSFER_TOKEN_SALT` and `JWT_SECRET`).
+   If you plan to access the frontend from another machine on your network, set
+   `NEXT_PUBLIC_BACKEND_URL` and `FRONTEND_URL` to the host's reachable IP (e.g. `http://192.168.2.20:3000`).
    These variables are now passed through Docker Compose so CORS works when
    accessing the dashboard from another PC.
 2. Start the stack with Docker Compose (dependencies will be installed automatically):

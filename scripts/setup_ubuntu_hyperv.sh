@@ -87,6 +87,14 @@ if ! grep -q 'TRANSFER_TOKEN_SALT:' docker-compose.yml; then
     sed -i '/API_TOKEN_SALT:/a\      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}' docker-compose.yml
 fi
 
+# Check Craft.js node types so missing components are caught early
+if command -v node &>/dev/null; then
+    echo "Validating Craft.js components in Strapi pages..."
+    if ! node frontend/scripts/check-node-types.js; then
+        echo "Craft.js component validation failed. See docs/craft_resolver_error.md for details." >&2
+    fi
+fi
+
 # Final message with instructions to start the stack
 echo
 echo "Setup complete! Review the .env file then launch the containers with:"

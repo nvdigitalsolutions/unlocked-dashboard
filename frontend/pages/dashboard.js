@@ -3,10 +3,11 @@ import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
 import { isValidContent } from '../lib/isValidContent';
+import { domResolver } from '../lib/domResolver';
 
 const craftDisabled = process.env.NEXT_PUBLIC_DISABLE_CRAFTJS === 'true';
 
-const resolver = { Container, Text };
+const resolver = { ...domResolver, Container, Text };
 
 let Editor = null;
 let Frame = null;

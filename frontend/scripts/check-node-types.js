@@ -89,6 +89,8 @@ const allowed = new Set([
     }
   } catch (err) {
     console.warn('Failed to fetch page data:', err.message);
-    process.exitCode = 1;
+    // Don't fail the build if the backend isn't reachable. Craft node type
+    // validation is best-effort and should not stop dev or CI environments.
+    process.exitCode = 0;
   }
 })();

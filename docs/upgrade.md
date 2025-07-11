@@ -24,7 +24,26 @@ This guide outlines the major steps to extend the starter project into the compl
 2. Ensure both `backend/Dockerfile` and `frontend/Dockerfile` install dependencies and build the apps in production mode.
 3. Copy `.env.example` to `.env` and fill in strong secrets before running `docker compose up`.
 
-## 4. Deployment on DigitalOcean
+## 4. Pre-deployment tasks
+
+Before deploying to DigitalOcean, address the following improvements that came
+out of testing the demo app:
+
+1. **Protect the dashboard** – add a `getServerSideProps` check in
+   `dashboard.js` that verifies a valid JWT cookie is present. Redirect to
+   `/login` when authentication fails so the editor isn't exposed to anonymous
+   visitors.
+2. **Enable inline save functionality** – reuse the dashboard's save logic on
+   pages such as `index.js` and `[slug].js` so that editors can persist their
+   Craft.js changes back to Strapi.
+3. **Improve disabled Craft.js output** – when `enableCraftjs` is `false`, avoid
+   rendering raw JSON. Show alternate content or hide the block entirely to keep
+   pages readable.
+4. *Optional*: enhance the editing experience with Craft.js tools like a custom
+   sidebar or inline text editing. These aren't strictly required but make the
+   editor workflow smoother.
+
+## 5. Deployment on DigitalOcean
 
 1. Edit `.do/app.yaml` so each service exposes the correct environment variables and routes. The example file already shows the structure.
 2. Create a DigitalOcean App via the dashboard or `doctl` and supply the secrets referenced in the spec.

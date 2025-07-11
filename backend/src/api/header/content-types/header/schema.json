@@ -1,0 +1,13 @@
+{
+  "kind": "singleType",
+  "collectionName": "headers",
+  "info": {
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header"
+  },
+  "attributes": {
+    "siteName": { "type": "string" },
+    "logo": { "type": "media" }
+  }
+}

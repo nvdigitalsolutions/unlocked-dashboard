@@ -7,27 +7,40 @@ module.exports = {
       filters: { slug: 'home' },
     });
     if (existingHome.length === 0) {
-      // Seed the homepage with a simple Container/Text structure so the
-      // frontend isn't empty on first run.
-      const defaultHomeContent = {
-        ROOT: {
-          type: 'Container',
-          isCanvas: true,
-          props: { padding: '40px' },
-          nodes: ['text1'],
+      const defaultBlocks = [
+        {
+          __component: 'blocks.hero',
+          title: 'Welcome to the frontend',
+          subtitle: 'Your Strapi v5 site is ready',
         },
-        text1: {
-          type: 'Text',
-          props: { text: 'Welcome to the frontend', fontSize: '24px' },
-        },
-      };
-
+      ];
       await strapi.entityService.create('api::page.page', {
         data: {
           title: 'Home',
           slug: 'home',
-          content: defaultHomeContent,
+          blocks: defaultBlocks,
         },
+      });
+    }
+
+    const existingHeader = await strapi.entityService.findMany('api::header.header');
+    if (existingHeader.length === 0) {
+      await strapi.entityService.create('api::header.header', {
+        data: { siteName: 'My Site' },
+      });
+    }
+
+    const existingFooter = await strapi.entityService.findMany('api::footer.footer');
+    if (existingFooter.length === 0) {
+      await strapi.entityService.create('api::footer.footer', {
+        data: { text: '© 2024 My Site' },
+      });
+    }
+
+    const existingGlobal = await strapi.entityService.findMany('api::global.global');
+    if (existingGlobal.length === 0) {
+      await strapi.entityService.create('api::global.global', {
+        data: { brandColor: '#ff0000', metaTitle: 'My Site', metaDescription: 'Site powered by Strapi v5' },
       });
     }
 

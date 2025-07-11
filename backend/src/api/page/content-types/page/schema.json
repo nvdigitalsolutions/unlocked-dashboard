@@ -6,10 +6,13 @@
     "displayName": "Page",
     "description": "CMS pages"
   },
+  "options": { "draftAndPublish": true },
   "attributes": {
     "title": { "type": "string" },
     "slug": { "type": "uid", "targetField": "title" },
-    "content": { "type": "json" },
-    "enableCraftjs": { "type": "boolean", "default": false }
+    "blocks": {
+      "type": "dynamiczone",
+      "components": ["blocks.hero", "blocks.cta"]
+    }
   }
 }

@@ -27,7 +27,7 @@ repo-root/
 │   ├── next.config.js     # Next.js configuration (env variables, etc.)
 │   ├── Dockerfile         # Dockerfile for containerizing the Next.js app
 │   └── package.json       # Frontend dependencies and scripts
-├── backend/               # Strapi v4 CMS app (Node.js headless CMS)
+├── backend/               # Strapi v5 CMS app (Node.js headless CMS)
 │   ├── config/            # Configuration (database, server, middleware using env vars)
 │   ├── src/
 │   │   ├── api/           # Content type definitions (Pages, Products, Orders, etc.)
@@ -65,6 +65,15 @@ repo-root/
     ALLOWED_DEV_ORIGIN=http://localhost:3000,http://192.168.2.20:3000
     ```
 5. To disable the Craft.js editor on the frontend, set `NEXT_PUBLIC_DISABLE_CRAFTJS=true` in `.env`.
+
+### Strapi v5 layout
+
+The backend now uses **Strapi v5** with a component‑driven architecture:
+
+* **Single types** `header`, `footer` and `global` hold site‑wide data.
+* The `page` collection type contains a `blocks` **dynamic zone** where editors can assemble components like `Hero` and `Cta`.
+* Components live under `src/components/blocks/*` (sections) and `src/components/shared/*` (atoms).
+* The `bootstrap` script seeds a home page, header, footer and global settings on first run.
 
 ## Running tests
 

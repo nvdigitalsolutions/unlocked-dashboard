@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { Container } from '../components/Container';
 import { Text } from '../components/Text';
@@ -36,58 +36,33 @@ if (!craftDisabled) {
   });
 }
 
-export default function Dashboard() {
-  const [page, setPage] = useState(null);
-  const [content, setContent] = useState(null);
+export default function Dashboard({ pageEntry }) {
+  const [content, setContent] = useState(pageEntry?.attributes.content);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=home`);
-        const data = await res.json();
-        const pageEntry = data.data && data.data[0];
-        if (pageEntry) {
-          setPage(pageEntry);
-          setContent(pageEntry.attributes.content);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    load();
-  }, []);
-
-  async function handleSave(json) {
-    if (!page) return;
+  async function handleSave(nodes) {
+    if (!pageEntry) return;
     try {
-      const jwtMatch = document.cookie.match(/(?:^|; )jwt=([^;]*)/);
-      const jwt = jwtMatch ? jwtMatch[1] : null;
-      const res = await fetch(`${process.env.BACKEND_URL}/api/pages/${page.id}`, {
+      const res = await fetch(`/api/pages?id=${pageEntry.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
-        },
-        body: JSON.stringify({ data: { content: json } }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: nodes }),
       });
-      if (!res.ok) {
-        console.error('Save failed:', await res.text());
-      }
+      if (!res.ok) alert('Save failed');
     } catch (err) {
       console.error(err);
     }
   }
 
-  if (!page) {
+  if (!pageEntry) {
     return <p>Loading...</p>;
   }
 
   if (craftDisabled) {
     return (
       <div>
-        <p>{page.attributes?.title || 'Dashboard'}</p>
-        {page.attributes?.content && (
-          <pre>{JSON.stringify(page.attributes.content, null, 2)}</pre>
+        <p>{pageEntry.attributes?.title || 'Dashboard'}</p>
+        {pageEntry.attributes?.content && (
+          <pre>{JSON.stringify(pageEntry.attributes.content, null, 2)}</pre>
         )}
       </div>
     );
@@ -127,26 +102,25 @@ export async function getServerSideProps({ req }) {
   const jwt = cookies.jwt;
   if (!jwt) {
     return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
-  }
-  try {
-    const res = await fetch(`${process.env.BACKEND_URL}/api/users/me`, {
-      headers: { Authorization: `Bearer ${jwt}` },
-    });
-    if (!res.ok) {
-      return {
-        redirect: { destination: '/login', permanent: false },
-      };
-    }
-  } catch (err) {
-    console.error('JWT validation failed', err);
-    return {
       redirect: { destination: '/login', permanent: false },
     };
   }
-  return { props: {} };
+  try {
+    const authRes = await fetch(`${process.env.BACKEND_URL}/api/users/me`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    if (!authRes.ok) {
+      return { redirect: { destination: '/login', permanent: false } };
+    }
+    const base = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const pageRes = await fetch(`${base}/api/pages?slug=home`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+    const { data } = await pageRes.json();
+    const pageEntry = data && data[0];
+    return { props: { pageEntry: pageEntry || null } };
+  } catch (err) {
+    console.error('JWT validation failed', err);
+    return { redirect: { destination: '/login', permanent: false } };
+  }
 }

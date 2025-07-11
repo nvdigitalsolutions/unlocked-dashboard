@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_blocks_heros",
+  "info": {
+    "displayName": "Hero",
+    "icon": "heading"
+  },
+  "attributes": {
+    "title": { "type": "string" },
+    "subtitle": { "type": "string" },
+    "button": { "type": "component", "component": "shared.button" }
+  }
+}

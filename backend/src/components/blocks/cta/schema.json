@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_blocks_ctas",
+  "info": {
+    "displayName": "Cta",
+    "icon": "bullhorn"
+  },
+  "attributes": {
+    "text": { "type": "text" },
+    "button": { "type": "component", "component": "shared.button" }
+  }
+}

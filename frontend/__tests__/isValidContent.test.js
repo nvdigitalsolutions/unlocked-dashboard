@@ -39,3 +39,11 @@ test('handles type objects with resolvedName', () => {
   };
   expect(isValidContent(content, resolver)).toBe(true);
 });
+
+test('allows basic HTML elements', () => {
+  const content = {
+    ROOT: { type: 'div', nodes: ['n1'] },
+    n1: { type: 'Container' },
+  };
+  expect(isValidContent(content, resolver)).toBe(true);
+});

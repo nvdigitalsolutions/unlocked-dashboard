@@ -26,6 +26,7 @@ services:
       ADMIN_JWT_SECRET: changeme
       JWT_SECRET: ${JWT_SECRET}
       API_TOKEN_SALT: KUNIpgntw/t3kgRAQfCN0w==
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       CLIENT_URL: http://localhost:3000
       PREVIEW_SECRET: someRandomPreviewSecret
       STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}

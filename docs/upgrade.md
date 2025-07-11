@@ -24,7 +24,7 @@ This guide outlines the major steps to extend the starter project into the compl
 2. Ensure both `backend/Dockerfile` and `frontend/Dockerfile` install dependencies and build the apps in production mode.
 3. Copy `.env.example` to `.env` and fill in strong secrets before running `docker compose up`.
 
-## 4. Pre-deployment tasks
+## 4. Pre-deployment tasks - COMPLETED
 
 Before deploying to DigitalOcean, address the following improvements that came
 out of testing the demo app:

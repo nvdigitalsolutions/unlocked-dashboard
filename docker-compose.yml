@@ -28,6 +28,7 @@ services:
       API_TOKEN_SALT: KUNIpgntw/t3kgRAQfCN0w==
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       CLIENT_URL: http://localhost:3000
+      FRONTEND_URL: ${FRONTEND_URL}
       PREVIEW_SECRET: someRandomPreviewSecret
       STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
       STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
@@ -46,6 +47,8 @@ services:
     command: sh -c "npm install && npm run dev"
     environment:
       BACKEND_URL: http://backend:1337
+      NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}
+      FRONTEND_URL: ${FRONTEND_URL}
       ALLOWED_DEV_ORIGIN: ${ALLOWED_DEV_ORIGIN}
       NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}
       REACT_EDITOR: ${REACT_EDITOR}

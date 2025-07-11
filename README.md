@@ -12,6 +12,7 @@ This repository provides an example of a full-stack project using a Next.js fron
   - Login form that stores the Strapi JWT using an API route.
   - Preview and login API routes.
   - All pages from Strapi, including the homepage, are editable with Craft.js components.
+    Each page has a checkbox in Strapi (`enableCraftjs`) that turns the builder on or off.
 
 ## Structure
 

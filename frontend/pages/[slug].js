@@ -22,7 +22,7 @@ export default function Page({ page }) {
   if (!page) {
     return <p>Not Found</p>;
   }
-  if (craftDisabled) {
+  if (!page.enableCraftjs) {
     return (
       <div>
         <p>{page.title}</p>
@@ -35,7 +35,7 @@ export default function Page({ page }) {
   const hasContent = isValidContent(page.content, resolver);
 
   return (
-    <Editor resolver={resolver}>
+    <Editor resolver={resolver} enabled={!craftDisabled}>
       <Frame data={hasContent ? page.content : undefined}>
         {!hasContent && (
           <Element is={Container} padding="40px" canvas>
@@ -47,8 +47,8 @@ export default function Page({ page }) {
   );
 }
 
-  export async function getStaticPaths() {
-    try {
+export async function getStaticPaths() {
+  try {
     const url = `${process.env.BACKEND_URL}/api/pages`;
     console.log('getStaticPaths fetch:', url);
     const res = await fetch(url);

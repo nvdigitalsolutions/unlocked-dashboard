@@ -18,7 +18,7 @@ export default function Home({ page }) {
     return <p>Not Found</p>;
   }
 
-  if (craftDisabled) {
+  if (!page.enableCraftjs) {
     return (
       <div>
         <p>{page.title}</p>
@@ -32,7 +32,7 @@ export default function Home({ page }) {
   const hasContent = isValidContent(page.content, resolver);
 
   return (
-    <Editor resolver={resolver}>
+    <Editor resolver={resolver} enabled={!craftDisabled}>
       <Frame data={hasContent ? page.content : undefined}>
         {!hasContent && (
           <Element is={Container} padding="40px" canvas>
@@ -44,8 +44,8 @@ export default function Home({ page }) {
   );
 }
 
-  export async function getStaticProps() {
-    try {
+export async function getStaticProps() {
+  try {
     const url = `${process.env.BACKEND_URL}/api/pages?filters[slug][$eq]=home`;
     console.log('getStaticProps(home) fetch:', url);
     const res = await fetch(url);

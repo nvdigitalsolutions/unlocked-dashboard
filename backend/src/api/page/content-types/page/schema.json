@@ -9,6 +9,7 @@
   "attributes": {
     "title": { "type": "string" },
     "slug": { "type": "uid", "targetField": "title" },
-    "content": { "type": "json" }
+    "content": { "type": "json" },
+    "enableCraftjs": { "type": "boolean", "default": false }
   }
 }

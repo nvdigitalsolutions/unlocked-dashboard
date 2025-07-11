@@ -78,14 +78,16 @@ if ! grep -q '^REACT_EDITOR=' .env; then
 fi
 
 # Ensure docker-compose passes the JWT secret to the backend
-if ! grep -q 'JWT_SECRET:' docker-compose.yml; then
-    sed -i '/ADMIN_JWT_SECRET:/a\      JWT_SECRET: ${JWT_SECRET}' docker-compose.yml
-fi
+  if ! grep -q 'JWT_SECRET:' docker-compose.yml; then
+      # shellcheck disable=SC2016
+      sed -i '/ADMIN_JWT_SECRET:/a\      JWT_SECRET: ${JWT_SECRET}' docker-compose.yml
+  fi
 
 # Ensure docker-compose passes the transfer token salt to the backend
-if ! grep -q 'TRANSFER_TOKEN_SALT:' docker-compose.yml; then
-    sed -i '/API_TOKEN_SALT:/a\      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}' docker-compose.yml
-fi
+  if ! grep -q 'TRANSFER_TOKEN_SALT:' docker-compose.yml; then
+      # shellcheck disable=SC2016
+      sed -i '/API_TOKEN_SALT:/a\      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}' docker-compose.yml
+  fi
 
 # Check Craft.js node types so missing components are caught early
 if command -v node &>/dev/null; then

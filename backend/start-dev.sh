@@ -1,12 +1,11 @@
-
-#!/bin/sh
+#!/usr/bin/env sh
 set -e
 
 # Verify required secrets are set and not using placeholder values
 required_vars="APP_KEYS ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SALT"
 
 for var in $required_vars; do
-  eval value="\$$var"
+  value=$(eval "printf '%s' \"\${$var}\"")
   case "$value" in
     ""|changeme*|change_me*)
       echo "Error: environment variable $var is not set or uses a placeholder value." >&2

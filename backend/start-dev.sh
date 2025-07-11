@@ -2,6 +2,14 @@
 set -e
 
 
+# Generate APP_KEYS if unset or using a placeholder value
+if [ -z "${APP_KEYS:-}" ] || printf '%s' "$APP_KEYS" | grep -Eq '^changeme|^change_me'; then
+  APP_KEYS=$(node -e "console.log(Array.from({length:4}, () => require('crypto').randomBytes(16).toString('hex')).join(','))")
+  export APP_KEYS
+  echo "Generated APP_KEYS for development"
+fi
+
+
 # Helper to generate a random secret if missing or placeholder
 generate_secret() {
   var_name=$1

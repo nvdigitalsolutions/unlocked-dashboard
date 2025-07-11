@@ -1,6 +1,21 @@
 #!/usr/bin/env sh
 set -e
 
+# Optionally reset the Postgres database if RESET_DB=true
+if [ "${RESET_DB:-false}" = "true" ]; then
+  echo "Resetting Postgres database..."
+  if ! command -v psql >/dev/null 2>&1; then
+    if command -v apk >/dev/null 2>&1; then
+      apk add --no-cache postgresql-client
+    else
+      apt-get update && apt-get install -y postgresql-client
+    fi
+  fi
+  PGPASSWORD="${DATABASE_PASSWORD:-strapi}" psql -h "${DATABASE_HOST:-db}" \
+    -U "${DATABASE_USERNAME:-strapi}" -d "${DATABASE_NAME:-strapi}" \
+    -c "DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;"
+fi
+
 
 # Generate APP_KEYS if unset or using a placeholder value
 if [ -z "${APP_KEYS:-}" ] || printf '%s' "$APP_KEYS" | grep -Eq '^changeme|^change_me'; then

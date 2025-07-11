@@ -26,6 +26,7 @@ const nextConfig = {
   env: {
     BACKEND_URL: process.env.BACKEND_URL,
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    FRONTEND_URL: process.env.FRONTEND_URL,
     NEXT_PUBLIC_DISABLE_CRAFTJS: process.env.NEXT_PUBLIC_DISABLE_CRAFTJS,
   },
   experimental: {

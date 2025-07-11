@@ -32,22 +32,15 @@ export default function Page({ page }) {
   const craftDisabled = useCraftDisabled();
   const showEditing = page && page.enableCraftjs && !craftDisabled;
 
-  async function handleSave(json) {
+  async function handleSave(nodes) {
     if (!page || !page.id) return;
     try {
-      const jwtMatch = document.cookie.match(/(?:^|; )jwt=([^;]*)/);
-      const jwt = jwtMatch ? jwtMatch[1] : null;
-      const res = await fetch(`${process.env.BACKEND_URL}/api/pages/${page.id}`, {
+      const res = await fetch(`/api/pages?id=${page.id}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
-        },
-        body: JSON.stringify({ data: { content: json } }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: nodes }),
       });
-      if (!res.ok) {
-        console.error('Save failed:', await res.text());
-      }
+      if (!res.ok) alert('Save failed');
     } catch (err) {
       console.error(err);
     }

@@ -52,7 +52,7 @@ repo-root/
 
 1. Copy `.env.example` to `.env` and adjust values as needed (particularly `APP_KEYS`, `ADMIN_JWT_SECRET`, `API_TOKEN_SALT` and `JWT_SECRET`).
    If you plan to access the frontend from another machine on your network, set
-   `NEXT_PUBLIC_BACKEND_URL` to the host's reachable IP (e.g. `http://192.168.2.20:1337`).
+   `NEXT_PUBLIC_BACKEND_URL` and `FRONTEND_URL` to the host's reachable IP (e.g. `http://192.168.2.20:3000`).
 2. Start the stack with Docker Compose (dependencies will be installed automatically):
    ```bash
    docker compose up --build

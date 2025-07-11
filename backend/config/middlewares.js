@@ -1,13 +1,13 @@
 module.exports = [
-  'strapi::errors',
+  'strapi::security',
   {
     name: 'strapi::cors',
     config: {
-      origin: process.env.CLIENT_URL || '*',
+      origin: [process.env.FRONTEND_URL],
       credentials: true,
     },
   },
-  'strapi::security',
+  'strapi::errors',
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',

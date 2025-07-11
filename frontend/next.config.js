@@ -29,10 +29,8 @@ const nextConfig = {
     FRONTEND_URL: process.env.FRONTEND_URL,
     NEXT_PUBLIC_DISABLE_CRAFTJS: process.env.NEXT_PUBLIC_DISABLE_CRAFTJS,
   },
-  experimental: {
-    // Include origins from the environment variable and automatically
-    // detected local network IPs to avoid cross-origin warnings.
-    allowedDevOrigins: Array.from(new Set([...envOrigins, ...getLocalOrigins()])),
-  },
+  // Include origins from the environment variable and automatically
+  // detected local network IPs to avoid cross-origin warnings.
+  allowedDevOrigins: Array.from(new Set([...envOrigins, ...getLocalOrigins()])),
 };
 module.exports = nextConfig;

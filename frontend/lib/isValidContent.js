@@ -16,6 +16,11 @@ export function isValidContent(content, resolver) {
     return false;
   }
 
+  const DOM_ELEMENTS = [
+    'a', 'div', 'p', 'span', 'img', 'ul', 'li', 'h1', 'h2', 'h3', 'h4', 'h5',
+    'h6', 'button', 'section', 'article', 'header', 'footer', 'nav', 'main'
+  ];
+
   const keys = Object.keys(content);
   if (keys.length === 0) {
     return false;
@@ -29,8 +34,16 @@ export function isValidContent(content, resolver) {
     const node = content[id];
     const typeName = getTypeName(node);
     const component = resolver[typeName];
-    if (!typeName || !component ||
-        (typeof component !== 'function' && typeof component !== 'object')) {
+    if (!typeName) {
+      return false;
+    }
+    if (!component) {
+      if (!DOM_ELEMENTS.includes(typeName)) {
+        return false;
+      }
+    } else if (
+      typeof component !== 'function' && typeof component !== 'object'
+    ) {
       return false;
     }
 

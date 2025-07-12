@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "develop": "strapi develop",
+    "develop": "sh ./start-dev.sh",
     "start": "strapi start",
     "build": "strapi build",
     "test": "jest"

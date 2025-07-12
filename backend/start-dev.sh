@@ -66,7 +66,7 @@ generate_secret() {
 }
 
 # Generate required secrets if missing
-for var in APP_KEYS ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SALT; do
+for var in APP_KEYS ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SALT ENCRYPTION_KEY; do
   generate_secret "$var"
 done
 

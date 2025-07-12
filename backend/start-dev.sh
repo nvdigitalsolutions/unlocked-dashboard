@@ -1,6 +1,14 @@
 #!/usr/bin/env sh
 set -e
 
+# Ensure the correct Node.js version is used
+required_major=18
+current_major=$(node -v | sed 's/^v\([0-9]*\).*/\1/')
+if [ "$current_major" -ne "$required_major" ]; then
+  echo "Node.js $required_major.x is required, found $(node -v)" >&2
+  exit 1
+fi
+
 # Optionally reset the Postgres database if RESET_DB=true
 if [ "${RESET_DB:-false}" = "true" ]; then
   echo "Resetting Postgres database..."

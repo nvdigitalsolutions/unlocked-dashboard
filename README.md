@@ -58,7 +58,7 @@ repo-root/
 1. Copy `.env.example` to `.env` and replace **all** secrets that start with `changeme` or `change_me`.
    Strapi refuses to start if these placeholders remain.
    `start-dev.sh` now generates `APP_KEYS`, `ADMIN_JWT_SECRET`, `JWT_SECRET`,
-   `API_TOKEN_SALT` , `TRANSFER_TOKEN_SALT` and `APP_KEYS` automatically when missing, but you
+   `API_TOKEN_SALT`, `TRANSFER_TOKEN_SALT`, `ENCRYPTION_KEY` and `APP_KEYS` automatically when missing, but you
    should still review the other secrets.
 
    If you plan to access the frontend from another machine on your network, set

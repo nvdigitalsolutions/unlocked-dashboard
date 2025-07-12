@@ -4,6 +4,7 @@
     "displayName": "Button",
     "icon": "hand-pointer"
   },
+  "category": "shared",
   "attributes": {
     "label": { "type": "string" },
     "url": { "type": "string" }

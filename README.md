@@ -14,6 +14,11 @@ This repository provides an example of a full-stack project using a Next.js fron
   - All pages from Strapi, including the homepage, are editable with Craft.js components.
     Each page has a checkbox in Strapi (`enableCraftjs`) that turns the builder on or off.
 
+> **Important:** Both the backend and frontend currently require **Node.js 18**.
+> Running the projects with a different Node version (for example Node 20)
+> can lead to startup errors such as `TypeError: Cannot read properties of undefined
+> (reading 'attributes')` when Strapi initializes.
+
 ## Structure
 
 ```

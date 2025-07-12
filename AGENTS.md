@@ -1,6 +1,3 @@
-Thanks! I’ll prepare step-by-step upgrade instructions for the `AGENT.md` file that will guide you through upgrading both the frontend and backend of the Unlocked Dashboard project to Node.js 20. This will include updating Dockerfiles, `.nvmrc`, `package.json` engines, verifying dependencies, and running tests. I’ll format it with bash commands and validation steps.
-
-
 # Upgrade Guide: Node.js 20 for *Unlocked Dashboard*
 
 ## Overview

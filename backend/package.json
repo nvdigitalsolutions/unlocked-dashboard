@@ -5,7 +5,7 @@
   "scripts": {
     "develop": "sh ./start-dev.sh",
     "start": "strapi start",
-    "build": "strapi build",
+    "build": "NODE_OPTIONS=--max_old_space_size=4096 strapi build",
     "test": "jest"
   },
   "dependencies": {

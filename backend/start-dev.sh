@@ -73,7 +73,7 @@ done
 # Ensure dependencies are installed
 if [ ! -d node_modules ]; then
   echo "Installing backend dependencies..."
-  npm install
+  npm install --legacy-peer-deps
 fi
 
 # Rebuild better-sqlite3 if missing or compiled for a different Node version

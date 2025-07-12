@@ -40,18 +40,27 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
-# Generate a JWT secret if the placeholder value is present
-# Generate a JWT secret if the placeholder value is present
-if grep -q '^JWT_SECRET=changeme' .env; then
-    new_secret=$(node -e "console.log(require('crypto').randomBytes(32).toString('base64'))")
-    sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$new_secret|" .env
-fi
+# Replace placeholder secrets with random values
+generate_secret() {
+    var="$1"
+    current=$(grep -E "^${var}=" .env | cut -d '=' -f2-)
+    if printf '%s' "$current" | grep -Eq '^changeme|^change_me'; then
+        case "$var" in
+            APP_KEYS)
+                new_value=$(node -e "console.log(Array.from({length:4}, () => require('crypto').randomBytes(16).toString('hex')).join(','))")
+                ;;
+            *)
+                new_value=$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")
+                ;;
+        esac
+        sed -i "s|^${var}=.*|${var}=${new_value}|" .env
+        echo "Generated ${var} in .env"
+    fi
+}
 
-# Generate a transfer token salt if the placeholder value is present
-if grep -q '^TRANSFER_TOKEN_SALT=changeme' .env; then
-    new_transfer_salt=$(node -e "console.log(require('crypto').randomBytes(16).toString('base64'))")
-    sed -i "s|^TRANSFER_TOKEN_SALT=.*|TRANSFER_TOKEN_SALT=$new_transfer_salt|" .env
-fi
+for var in APP_KEYS ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SALT ENCRYPTION_KEY; do
+    generate_secret "$var"
+done
 
 # Ensure the frontend talks to the backend via Docker's internal network for
 # server-side requests. If NEXT_PUBLIC_BACKEND_URL is not set, default it to the

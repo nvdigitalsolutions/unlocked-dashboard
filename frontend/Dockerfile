@@ -9,11 +9,11 @@ ARG ALLOWED_DEV_ORIGIN=http://localhost:3000
 ENV ALLOWED_DEV_ORIGIN=$ALLOWED_DEV_ORIGIN
 
 COPY package*.json ./
-# Install all dependencies so the build step has access to dev packages
-RUN npm install
+# Install dependencies using the lockfile for reproducible builds
+RUN npm ci
 COPY . .
 RUN npm run build
 
 # Remove development dependencies to keep the image slim
-RUN npm prune --production
+RUN npm prune --omit=dev
 CMD ["npm", "start"]

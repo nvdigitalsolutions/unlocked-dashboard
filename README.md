@@ -15,7 +15,7 @@ This repository provides an example of a full-stack project using a Next.js fron
     Each page has a checkbox in Strapi (`enableCraftjs`) that turns the builder on or off.
 
 > **Important:** Both the backend and frontend currently require **Node.js 20**.
-> Running the projects with a different Node version (for example Node 20)
+> Running the projects with a different Node version (for example Node 18)
 > can lead to startup errors such as `TypeError: Cannot read properties of undefined
 > (reading 'attributes')` when Strapi initializes.
 

@@ -4,6 +4,7 @@
     "displayName": "Cta",
     "icon": "bullhorn"
   },
+  "category": "blocks",
   "attributes": {
     "text": { "type": "text" },
     "button": { "type": "component", "component": "shared.button" }

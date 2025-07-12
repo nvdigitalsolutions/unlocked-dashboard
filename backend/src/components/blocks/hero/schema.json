@@ -4,6 +4,7 @@
     "displayName": "Hero",
     "icon": "heading"
   },
+  "category": "blocks",
   "attributes": {
     "title": { "type": "string" },
     "subtitle": { "type": "string" },

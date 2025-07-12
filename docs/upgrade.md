@@ -12,7 +12,7 @@ This guide explains **how to upgrade the `nvdigitalsolutions/unlocked-dashboard`
 It assumes:
 
 * **Frontend:** Next.js 13+ (Pages Router)
-* **Backend:** Strapi v4.x running at `BACKEND_URL`
+* **Backend:** Strapi v5.x running at `BACKEND_URL`
 * **Node ≥ 20** and **Yarn ≥ 3**
 
 ---

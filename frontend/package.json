@@ -29,6 +29,6 @@
     "node-mocks-http": "^1.17.2"
   },
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   }
 }

@@ -14,7 +14,7 @@ This repository provides an example of a full-stack project using a Next.js fron
   - All pages from Strapi, including the homepage, are editable with Craft.js components.
     Each page has a checkbox in Strapi (`enableCraftjs`) that turns the builder on or off.
 
-> **Important:** Both the backend and frontend currently require **Node.js 18**.
+> **Important:** Both the backend and frontend currently require **Node.js 20**.
 > Running the projects with a different Node version (for example Node 20)
 > can lead to startup errors such as `TypeError: Cannot read properties of undefined
 > (reading 'attributes')` when Strapi initializes.
@@ -169,7 +169,7 @@ cd unlocked-dashboard
 
 The script will:
 
-1. Install Node.js 18 using NodeSource.
+1. Install Node.js 20 using NodeSource.
 2. Ensure Docker is running and your user is part of the `docker` group.
 3. Copy `.env.example` to `.env` if needed and generate a random `JWT_SECRET`.
 4. Install backend and frontend dependencies.

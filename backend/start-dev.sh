@@ -2,7 +2,7 @@
 set -e
 
 # Ensure the correct Node.js version is used
-required_major=18
+required_major=20
 current_major=$(node -v 2>/dev/null | sed 's/^v\([0-9]*\).*/\1/')
 if [ "$current_major" -ne "$required_major" ]; then
   # Attempt to switch using nvm if available

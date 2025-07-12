@@ -13,7 +13,7 @@ It assumes:
 
 * **Frontend:** Next.js 13+ (Pages Router)
 * **Backend:** Strapi v4.x running at `BACKEND_URL`
-* **Node ≥ 18** and **Yarn ≥ 3**
+* **Node ≥ 20** and **Yarn ≥ 3**
 
 ---
 

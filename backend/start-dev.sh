@@ -48,5 +48,11 @@ for var in APP_KEYS ADMIN_JWT_SECRET JWT_SECRET API_TOKEN_SALT TRANSFER_TOKEN_SA
   generate_secret "$var"
 done
 
+# Rebuild better-sqlite3 if it was compiled for a different Node version
+if ! node -e "require('better-sqlite3')" >/dev/null 2>&1; then
+  echo "Rebuilding better-sqlite3 for Node $(node -v)..."
+  npm rebuild better-sqlite3
+fi
+
 # Launch Strapi in develop mode with debug logging
 exec npx strapi develop --debug

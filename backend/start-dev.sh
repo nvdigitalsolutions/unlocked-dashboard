@@ -3,10 +3,24 @@ set -e
 
 # Ensure the correct Node.js version is used
 required_major=18
-current_major=$(node -v | sed 's/^v\([0-9]*\).*/\1/')
+current_major=$(node -v 2>/dev/null | sed 's/^v\([0-9]*\).*/\1/')
 if [ "$current_major" -ne "$required_major" ]; then
-  echo "Node.js $required_major.x is required, found $(node -v)" >&2
-  exit 1
+  # Attempt to switch using nvm if available
+  if [ -z "$NVM_DIR" ] && [ -s "$HOME/.nvm/nvm.sh" ]; then
+    # shellcheck disable=SC1090
+    . "$HOME/.nvm/nvm.sh"
+    current_major=$(node -v 2>/dev/null | sed 's/^v\([0-9]*\).*/\1/')
+  fi
+  if command -v nvm >/dev/null 2>&1; then
+    echo "Switching to Node.js $required_major via nvm"
+    nvm install $required_major >/dev/null
+    nvm use $required_major >/dev/null
+    current_major=$(node -v 2>/dev/null | sed 's/^v\([0-9]*\).*/\1/')
+  fi
+  if [ "$current_major" -ne "$required_major" ]; then
+    echo "Node.js $required_major.x is required, found $(node -v)" >&2
+    exit 1
+  fi
 fi
 
 # Optionally reset the Postgres database if RESET_DB=true

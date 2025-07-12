@@ -13,7 +13,7 @@ services:
     volumes:
       - ./backend:/app
       - backend-node-modules:/app/node_modules
-    command: sh -c "npm install && ./start-dev.sh"
+    command: sh -c "npm install --legacy-peer-deps && ./start-dev.sh"
     environment:
       DATABASE_CLIENT: postgres
       DATABASE_HOST: db
@@ -44,7 +44,7 @@ services:
       - frontend-node-modules:/app/node_modules
     # Install dependencies on the first run because the node_modules
     # volume overrides the image's files.
-    command: sh -c "npm install && npm run dev"
+    command: sh -c "npm install --legacy-peer-deps && npm run dev"
     environment:
       BACKEND_URL: http://backend:1337
       NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL}

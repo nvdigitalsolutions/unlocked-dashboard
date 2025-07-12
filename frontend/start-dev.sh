@@ -25,5 +25,11 @@ fi
 # Validate Craft.js node types
 node ./scripts/check-node-types.js
 
+# Install dependencies if missing
+if [ ! -d node_modules ]; then
+  echo "Installing frontend dependencies..."
+  npm install
+fi
+
 # Start Next.js in dev mode
 NODE_OPTIONS="--inspect" next dev

@@ -24,6 +24,12 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 
+# Install project dependencies using the lockfiles for reproducible builds
+echo "Installing backend dependencies..."
+(cd backend && npm ci)
+echo "Installing frontend dependencies..."
+(cd frontend && npm ci)
+
 # Start and enable Docker
 sudo systemctl enable --now docker
 
@@ -104,6 +110,14 @@ if command -v node &>/dev/null; then
     if ! node frontend/scripts/check-node-types.js; then
         echo "Craft.js component validation failed. See docs/craft_resolver_error.md for details." >&2
     fi
+fi
+
+# Build the Docker images so subsequent runs are fast
+echo "Building Docker images..."
+if command -v docker &>/dev/null && docker compose version &>/dev/null; then
+    docker compose build
+else
+    docker-compose build
 fi
 
 # Final message with instructions to start the stack

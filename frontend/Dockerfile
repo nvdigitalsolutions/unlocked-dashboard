@@ -1,4 +1,4 @@
-FROM node:18-slim
+FROM node:20-slim
 WORKDIR /app
 
 # Allow the backend URL to be provided at build time. This is required so Next.js
